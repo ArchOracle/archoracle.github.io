@@ -20,13 +20,71 @@
     width: max-content;
 }
 
+/** region Title*/
+
 .title {
-    padding-left: 30%;
-    padding-top: 5%;
-    padding-bottom: 5%;
-    font-size: 20pt;
-    font-style: gotic;
+    display: grid;
+    min-height: 100px;
+    grid-template-columns: 40% 5% 20% 5% 30%;
+    grid-template-rows: 80% 20%;
+    font-family: "Century Gothic";
+    text-transform: uppercase;
 }
+
+.title__vampire_letter_v {
+    grid-column: 2/2;
+    grid-row: 1/3;
+    font-size: 40pt;
+    display: flex;
+}
+.title__vampire_letter_v span {
+    display: inline-block;
+    font-size: 1em;
+    transform: translateX(15px) translateY(35px) scale(1, 2);
+    /*flex-grow: 1;*/
+    justify-self: center;
+}
+
+.title__vampire_letters_other__top {
+    display: flex;
+    grid-column: 3/3;
+    grid-row: 1/1;
+    border-bottom: 1px solid black;
+    text-align: justify;
+    align-items: flex-end;
+    justify-content: space-around;
+    height: 100%;
+}
+
+.title__vampire_letters_other__top span {
+    display: inline-block;
+    font-size: 1em;
+    transform: scale(2, 4);
+    transform-origin: left bottom;
+    /*flex-grow: 1;*/
+    justify-self: center;
+}
+
+.title__vampire_letter_e {
+    grid-column: 4/4;
+    grid-row: 1/3;
+    font-size: 40pt;
+    display: flex;
+}
+.title__vampire_letter_e span {
+    display: inline-block;
+    font-size: 1em;
+    transform: translateY(35px) scale(1, 2);
+    /*flex-grow: 1;*/
+    justify-self: center;
+}
+
+.title__vampire_letters_other__bottom {
+    grid-column: 3/3;
+    grid-row: 2/2;
+}
+
+/** endregion */
 
 .section {
     display: grid;

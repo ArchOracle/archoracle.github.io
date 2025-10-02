@@ -12,7 +12,17 @@
 	<div id="left"></div>
 	<div id="center">
 		<div class="title">
-			VAMPIRE: THE MASQUERADE
+<!--			VAMPIRE: THE MASQUERADE-->
+			<div class="title__vampire_letter_v"><span>v</span></div>
+			<div class="title__vampire_letters_other__top">
+				<span>a</span>
+				<span>m</span>
+				<span>p</span>
+				<span>i</span>
+				<span>r</span>
+			</div>
+			<div class="title__vampire_letter_e"><span>e</span></div>
+			<div class="title__vampire_letters_other__bottom">the masquerade</div>
 		</div>
 		<template x-for="(section, sectionKey) in $store.state.sections" :key="sectionKey">
 			<div class="section" x-data="section">
