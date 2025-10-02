@@ -94,6 +94,60 @@ class App extends Component {
 							}
 						}
 					}
+				},
+				skills: {
+					name: 'Способности',
+					groups: {
+						talents: {
+							name: 'Таланты',
+							data: this.getGroupInitData('skills'),
+							elements: {
+								athletics: this.getAttribute('skills', 'athletics', 'Атлетика'),
+								attention: this.getAttribute('skills', 'attention', 'Внимательность'),
+								intimidation: this.getAttribute('skills', 'intimidation', 'Запугивание'),
+								streetwise: this.getAttribute('skills', 'streetwise', 'Знание Улиц'),
+								leadership: this.getAttribute('skills', 'leadership', 'Лидерство'),
+								melee: this.getAttribute('skills', 'melee', 'Рукопашный Бой'),
+								evasion: this.getAttribute('skills', 'evasion', 'Уклонение'),
+								cunning: this.getAttribute('skills', 'cunning', 'Хитрость'),
+								expression: this.getAttribute('skills', 'expression', 'Экспрессия'),
+								empathy: this.getAttribute('skills', 'empathy', 'Эмпатия'),
+							}
+						},
+						capabilities: {
+							name: 'Навыки',
+							data: this.getGroupInitData('skills'),
+							elements: {
+								security: this.getAttribute('skills', 'security', 'Безопасность'),
+								driving: this.getAttribute('skills', 'driving', 'Вождение'),
+								survival: this.getAttribute('skills', 'survival', 'Выживание'),
+								execution: this.getAttribute('skills', 'execution', 'Исполнение'),
+								knowledge_animals: this.getAttribute('skills', 'knowledge_animals', 'Знание Животных'),
+								crafts: this.getAttribute('skills', 'crafts', 'Ремесла'),
+								stealth: this.getAttribute('skills', 'stealth', 'Скрытность'),
+								shooting: this.getAttribute('skills', 'shooting', 'Стрельба'),
+								fencing: this.getAttribute('skills', 'fencing', 'Фехтование'),
+								etiquette: this.getAttribute('skills', 'etiquette', 'Этикет'),
+							}
+						},
+						knowledge: {
+							name: 'Познания',
+							data: this.getGroupInitData('skills'),
+							elements: {
+								academics: this.getAttribute('skills', 'academics', 'Академические'),
+								laws: this.getAttribute('skills', 'laws', 'Законы'),
+								computers: this.getAttribute('skills', 'computers', 'Компьютеры'),
+								linguistics: this.getAttribute('skills', 'linguistics', 'Лингвистика'),
+								medicine: this.getAttribute('skills', 'medicine', 'Медицина'),
+								sciences: this.getAttribute('skills', 'sciences', 'Научные'),
+								occult: this.getAttribute('skills', 'occult', 'Оккультизм'),
+								politics: this.getAttribute('skills', 'politics', 'Политикa'),
+								investigations: this.getAttribute('skills', 'investigations', 'Расследования'),
+								finance: this.getAttribute('skills', 'finance', 'Финансы'),
+							}
+						}
+					}
+
 				}
 			}
 		})
