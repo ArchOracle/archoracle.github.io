@@ -10,64 +10,89 @@ class Component {
 class App extends Component{
 	static instance
 
+	maxPoints = {
+		attributes: {
+			0: 0,
+			1: 7,
+			2: 5,
+			3: 3
+		},
+		skills: {
+			0: 0,
+			1: 13,
+			2: 9,
+			3: 5
+		}
+	}
+
+	orderNumber = 1
+
 	static get() {
 		if (!App.instance) {
 			App.instance = new App('app')
-			App.instance.init()
+			App.instance.initStore()
 		}
 		return App.instance
 	}
 
-	init() {
+	initStore() {
 		Alpine.store('state', {
 			sections: {
 				head: {
-					elements: {
-						name: {
-							name: 'name',
-							label: 'Имя',
-							value: ''
+					groups: {
+						game: {
+							elements: {
+								name: this.getHeadInitElement('name', 'Имя'),
+								player: this.getHeadInitElement('player', 'Игрок'),
+								chronicle: this.getHeadInitElement('chronicle', 'Хроника')
+							}
 						},
-						nature: {
-							name: 'nature',
-							label: 'Натура',
-							value: ''
+						person: {
+							elements: {
+								nature: this.getHeadInitElement('nature', 'Натура'),
+								mask: this.getHeadInitElement('mask', 'Маска'),
+								clan: this.getHeadInitElement('clan', 'Клан')
+							}
 						},
-						generation: {
-							name: 'generation',
-							label: 'Поколение',
-							value: ''
+						vampire: {
+							elements: {
+								generation: this.getHeadInitElement('generation', 'Поколение'),
+								shelter: this.getHeadInitElement('shelter', 'Убежище'),
+								concept: this.getHeadInitElement('concept', 'Концепт')
+							}
+						}
+					}
+				},
+				attributes: {
+					name: 'Атрибуты',
+					groups: {
+						physical: {
+							name: 'Физические',
+							data: this.getGroupInitData('attributes'),
+							elements: {
+								strength: this.getAttribute('strength', 'Сила'),
+								agility: this.getAttribute('agility', 'Ловкость'),
+								stamina: this.getAttribute('stamina', 'Выносливость'),
+							}
 						},
-						player: {
-							name: 'player',
-							label: 'Игрок',
-							value: ''
+						social: {
+							name: 'Социальные',
+							data: this.getGroupInitData('attributes'),
+							elements: {
+								charm: this.getAttribute('charm', 'Обаяние'),
+								manipulation: this.getAttribute('manipulation', 'Манипуляция'),
+								appearance: this.getAttribute('appearance', 'Внешность'),
+							}
 						},
-						mask: {
-							name: 'mask',
-							label: 'Маска',
-							value: ''
-						},
-						shelter: {
-							name: 'shelter',
-							label: 'Убежище',
-							value: ''
-						},
-						chronicle: {
-							name: 'chronicle',
-							label: 'Хроника',
-							value: ''
-						},
-						clan: {
-							name: 'clan',
-							label: 'Клан',
-							value: ''
-						},
-						concept: {
-							name: 'concept',
-							label: 'Концепт',
-							value: ''
-						},
+						mental: {
+							name: 'Ментальные',
+							data: this.getGroupInitData('attributes'),
+							elements: {
+								perception: this.getAttribute('perception', 'Восприятие'),
+								intelligence: this.getAttribute('intelligence', 'Интеллект'),
+								savvy: this.getAttribute('savvy', 'Смекалка'),
+							}
+						}
 					}
 				}
 			}
@@ -80,6 +105,109 @@ class App extends Component{
 
 	setState(state) {
 		Alpine.store('state', state)
+	}
+
+	getElementValue(section, group, element) {
+		return this.getState().sections[section].groups[group].elements[element].value
+	}
+
+	setElementValue(section, group, element, value) {
+		this.getState().sections[section].groups[group].elements[element].value = value
+	}
+
+	getGroupInitData(section) {
+		return {
+			isNeed: section === 'attributes' || section === 'skills',
+			points: {
+				current: 0,
+				max: this.maxPoints[section][this.orderNumber]
+			},
+			orderNumber: this.orderNumber++
+		}
+	}
+
+	handleSelectImportance(sectionKey, groupKey, value) {
+		// debugger;
+		const newOrderNumber = Number.parseInt(value)
+
+		if (newOrderNumber !== 0) {
+			for (let group of Object.keys(this.getSectionGroups(sectionKey))) {
+				if (this.getGroupData(sectionKey, group).orderNumber === newOrderNumber && group !== groupKey) {
+					this.getGroupData(sectionKey, group).orderNumber = 0
+				}
+			}
+		}
+		this.getGroupData(sectionKey, groupKey).orderNumber = newOrderNumber
+		this.getGroupData(sectionKey, groupKey).points.max = this.maxPoints[sectionKey][newOrderNumber]
+
+	}
+
+	handleIncrementTraitValue(sectionKey, groupKey, elementKey, newValue, oldValue) {
+		let newValuePermanent = Number.parseInt(newValue)
+		if (Number.isNaN(newValuePermanent)) {
+			newValuePermanent = 0
+			this.getElementValue(sectionKey, groupKey, elementKey).permanent = newValuePermanent
+		}
+		let oldValuePermanent = Number.parseInt(oldValue)
+		if (Number.isNaN(oldValuePermanent)) {
+			oldValuePermanent = 0
+		}
+		if (
+			newValuePermanent === oldValuePermanent
+			|| (newValuePermanent === 0 && oldValuePermanent < 0)
+		) {
+			return;
+		}
+		let diff = (newValuePermanent - oldValuePermanent)
+		if (newValuePermanent < 0) {
+			newValuePermanent = 0
+			diff = 0
+			this.getElementValue(sectionKey, groupKey, elementKey).permanent = newValuePermanent
+		}
+		this.getGroupData(sectionKey, groupKey).points.current += diff
+		this.getElementValue(sectionKey, groupKey, elementKey).temporary = newValuePermanent
+	}
+
+	getSectionGroups(section) {
+		return this.getState().sections[section].groups
+	}
+
+	getGroupData(section, group) {
+		return this.getState().sections[section].groups[group].data
+	}
+
+	getAttribute(code, name, type = 'points') {
+		return {
+			name: name,
+			value: {
+				permanent: 1,
+				temporary: 1
+			},
+			type: this.getType(type)
+		}
+	}
+
+	getHeadInitElement(code, name) {
+		return {
+			name: name,
+			value: code === 'generation' ? 13 : '',
+			type: this.getType(code === 'generation' ? 'number' : 'text'),
+		}
+	}
+
+	getType(type = 'number') {
+		if (type === 'points') {
+			return {
+				typeCode: type,
+				maxLength: 5
+			}
+		}
+		if (type === 'text' || type === 'number') {
+			return {
+				typeCode: type
+			}
+		}
+		throw new Error('Not Implemented!')
 	}
 }
 
