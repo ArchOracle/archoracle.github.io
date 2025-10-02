@@ -116,6 +116,9 @@ class App extends Component {
 	}
 
 	getGroupInitData(section) {
+		if (section === 'skills' && this.orderNumber === 4) {
+			this.orderNumber = 1
+		}
 		return {
 			isNeed: section === 'attributes' || section === 'skills',
 			points: {
