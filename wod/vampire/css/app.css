@@ -33,6 +33,27 @@
     grid-template-columns: repeat(3, 1fr);
     border-bottom: 1px solid black;
     padding-bottom: 10px;
+    margin-top: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.section__name {
+    padding: 20px;
+    font-size: 15pt;
+    grid-column: 1 / 4;
+    justify-self: center;
+    align-self: center;
+}
+
+.section__group_name {
+    padding: 10px;
+    justify-self: center;
+    align-self: center;
+}
+
+.section__element {
+    padding-top: 10px;
 }
 
 /*endregion*/
