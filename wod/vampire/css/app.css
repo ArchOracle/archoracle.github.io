@@ -1,0 +1,40 @@
+#app {
+    display: flex;
+    & > div {
+        border: 1px solid black;
+          min-height: 1500px;
+    }
+}
+
+/* region Лево*/
+#left {
+    min-width: 25%;
+}
+
+/* endregion */
+
+/* region Центр - основной чарник */
+
+#center {
+    min-width: 50%;
+}
+
+.title {
+    padding-left: 30%;
+    padding-top: 5%;
+    padding-bottom: 5%;
+    font-size: 20pt;
+    font-style: gotic;
+}
+
+.section {
+    display: grid;
+}
+
+/*endregion*/
+
+/** region Право */
+#right {
+    min-width: 25%;
+}
+/* endregion*/

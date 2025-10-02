@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Чарник вампиров</title>
+	<link rel="stylesheet" href="css/app.css">
+	<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+	<script src="js/app.js"></script>
+</head>
+<body>
+<div id="app">
+	<div id="left"></div>
+	<div id="center">
+		<div class="title">
+			VAMPIRE: THE MASQUERADE
+		</div>
+		<div class="section head" x-data="Head.get()">
+			<template x-for="item in instance.fields" :key="item.name">
+				<div class="head__field_container" x-data="TextField.get(item.name)">
+					<label>
+						<span x-text="instance.label"></span>:
+						<input type="text" x-model="instance.value">
+					</label>
+				</div>
+			</template>
+		</div>
+	</div>
+	<div id="right"></div>
+</div>
+</body>
+</html>
