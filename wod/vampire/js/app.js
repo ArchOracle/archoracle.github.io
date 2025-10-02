@@ -1,8 +1,13 @@
-class TextField {
+class Component {
+	parent
+}
+
+class TextField extends Component{
 	label
 	value
 
 	constructor(label, value) {
+		super();
 		this.label = label
 		this.value = value
 	}
@@ -18,10 +23,6 @@ class TextField {
 			setValue: instance.setValue
 		}
 	}
-}
-
-class Component {
-
 }
 
 class Head extends Component {
