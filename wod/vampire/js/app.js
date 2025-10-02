@@ -7,7 +7,7 @@ class Component {
 
 }
 
-class App extends Component{
+class App extends Component {
 	static instance
 
 	maxPoints = {
@@ -70,27 +70,27 @@ class App extends Component{
 							name: 'Физические',
 							data: this.getGroupInitData('attributes'),
 							elements: {
-								strength: this.getAttribute('strength', 'Сила'),
-								agility: this.getAttribute('agility', 'Ловкость'),
-								stamina: this.getAttribute('stamina', 'Выносливость'),
+								strength: this.getAttribute('attributes', 'strength', 'Сила'),
+								agility: this.getAttribute('attributes', 'agility', 'Ловкость'),
+								stamina: this.getAttribute('attributes', 'stamina', 'Выносливость'),
 							}
 						},
 						social: {
 							name: 'Социальные',
 							data: this.getGroupInitData('attributes'),
 							elements: {
-								charm: this.getAttribute('charm', 'Обаяние'),
-								manipulation: this.getAttribute('manipulation', 'Манипуляция'),
-								appearance: this.getAttribute('appearance', 'Внешность'),
+								charm: this.getAttribute('attributes', 'charm', 'Обаяние'),
+								manipulation: this.getAttribute('attributes', 'manipulation', 'Манипуляция'),
+								appearance: this.getAttribute('attributes', 'appearance', 'Внешность'),
 							}
 						},
 						mental: {
 							name: 'Ментальные',
 							data: this.getGroupInitData('attributes'),
 							elements: {
-								perception: this.getAttribute('perception', 'Восприятие'),
-								intelligence: this.getAttribute('intelligence', 'Интеллект'),
-								savvy: this.getAttribute('savvy', 'Смекалка'),
+								perception: this.getAttribute('attributes', 'perception', 'Восприятие'),
+								intelligence: this.getAttribute('attributes', 'intelligence', 'Интеллект'),
+								savvy: this.getAttribute('attributes', 'savvy', 'Смекалка'),
 							}
 						}
 					}
@@ -176,12 +176,12 @@ class App extends Component{
 		return this.getState().sections[section].groups[group].data
 	}
 
-	getAttribute(code, name, type = 'points') {
+	getAttribute(section, code, name, type = 'points') {
 		return {
 			name: name,
 			value: {
-				permanent: 1,
-				temporary: 1
+				permanent: section === 'attributes' ? 1 : 0,
+				temporary: section === 'attributes' ? 1 : 0
 			},
 			type: this.getType(type)
 		}
