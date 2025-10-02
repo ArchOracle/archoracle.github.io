@@ -1,77 +1,94 @@
 class Component {
-	parent
+	name
+
+	constructor(name) {
+		this.name = name
+	}
+
 }
 
-class TextField extends Component{
-	label
-	value
-
-	constructor(label, value) {
-		super();
-		this.label = label
-		this.value = value
-	}
-
-	setValue(value) {
-		this.value = value
-	}
-
-	static get(label) {
-		const instance = new TextField(label, '')
-		return {
-			instance: instance,
-			setValue: instance.setValue
-		}
-	}
-}
-
-class Head extends Component {
-	fields
+class App extends Component{
 	static instance
 
-	constructor() {
-		super();
-		this.fields = [
-			{
-				name: 'Имя'
-			},
-			{
-				name: 'Натура'
-			},
-			{
-				name: 'Поколение'
-			},
-			{
-				name: 'Игрок'
-			},
-			{
-				name: 'Маска'
-			},
-			{
-				name: 'Убежище'
-			},
-			{
-				name: 'Хроника'
-			},
-			{
-				name: 'Клан'
-			},
-			{
-				name: 'Концепт'
-			},
-		]
+	static get() {
+		if (!App.instance) {
+			App.instance = new App('app')
+			App.instance.init()
+		}
+		return App.instance
 	}
 
-	static get() {
-		if (!Head.instance) {
-			Head.instance = new Head()
-		}
-		return {
-			instance: Head.instance
-		}
+	init() {
+		Alpine.store('state', {
+			sections: {
+				head: {
+					elements: {
+						name: {
+							name: 'name',
+							label: 'Имя',
+							value: ''
+						},
+						nature: {
+							name: 'nature',
+							label: 'Натура',
+							value: ''
+						},
+						generation: {
+							name: 'generation',
+							label: 'Поколение',
+							value: ''
+						},
+						player: {
+							name: 'player',
+							label: 'Игрок',
+							value: ''
+						},
+						mask: {
+							name: 'mask',
+							label: 'Маска',
+							value: ''
+						},
+						shelter: {
+							name: 'shelter',
+							label: 'Убежище',
+							value: ''
+						},
+						chronicle: {
+							name: 'chronicle',
+							label: 'Хроника',
+							value: ''
+						},
+						clan: {
+							name: 'clan',
+							label: 'Клан',
+							value: ''
+						},
+						concept: {
+							name: 'concept',
+							label: 'Концепт',
+							value: ''
+						},
+					}
+				}
+			}
+		})
+	}
+
+	getState() {
+		return Alpine.store('state')
+	}
+
+	setState(state) {
+		Alpine.store('state', state)
 	}
 }
 
-class CharList {
+class Tools {
+	static encodeBase64(str) {
+		return btoa(unescape(encodeURIComponent(str)));
+	}
 
+	decodeBase64(str) {
+		return decodeURIComponent(escape(atob(str)));
+	}
 }
