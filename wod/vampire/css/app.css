@@ -8,7 +8,7 @@
 
 /* region Лево*/
 #left {
-    min-width: 25%;
+    min-width: 250px;
 }
 
 /* endregion */
@@ -16,7 +16,8 @@
 /* region Центр - основной чарник */
 
 #center {
-    min-width: 50%;
+    min-width: max(50%, 786px);
+    width: max-content;
 }
 
 .title {
@@ -29,12 +30,13 @@
 
 .section {
     display: grid;
+    grid-template-columns: repeat(3, 1fr);
 }
 
 /*endregion*/
 
 /** region Право */
 #right {
-    min-width: 25%;
+    min-width: 250px;
 }
 /* endregion*/

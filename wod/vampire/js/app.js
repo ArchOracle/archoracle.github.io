@@ -26,6 +26,7 @@ class Component {
 
 class Head extends Component {
 	fields
+	static instance
 
 	constructor() {
 		super();
@@ -34,25 +35,25 @@ class Head extends Component {
 				name: 'Имя'
 			},
 			{
-				name: 'Игрок'
-			},
-			{
-				name: 'Хроника'
-			},
-			{
 				name: 'Натура'
-			},
-			{
-				name: 'Маска'
-			},
-			{
-				name: 'Клан'
 			},
 			{
 				name: 'Поколение'
 			},
 			{
+				name: 'Игрок'
+			},
+			{
+				name: 'Маска'
+			},
+			{
 				name: 'Убежище'
+			},
+			{
+				name: 'Хроника'
+			},
+			{
+				name: 'Клан'
 			},
 			{
 				name: 'Концепт'
@@ -61,8 +62,11 @@ class Head extends Component {
 	}
 
 	static get() {
+		if (!Head.instance) {
+			Head.instance = new Head()
+		}
 		return {
-			instance: new Head()
+			instance: Head.instance
 		}
 	}
 }
