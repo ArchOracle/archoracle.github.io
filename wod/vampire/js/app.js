@@ -226,7 +226,9 @@ class App extends Component {
 			diff = 0
 			this.getElementValue(sectionKey, groupKey, elementKey).permanent = newValuePermanent
 		}
-		this.getGroupData(sectionKey, groupKey).points.current += diff
+		if (!!this.getGroupData(sectionKey, groupKey).isNeed) {
+			this.getGroupData(sectionKey, groupKey).points.current += diff
+		}
 		this.getElementValue(sectionKey, groupKey, elementKey).temporary = newValuePermanent
 	}
 
