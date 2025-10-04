@@ -147,7 +147,28 @@ class App extends Component {
 							}
 						}
 					}
+				},
+				advantages: {
+					name: 'Преимущества',
+					groups: {
+						additions: {
+							name: 'Дополнения',
+							data: this.getGroupInitData('advantages'),
+							elements: {
+								allies: this.getAttribute('advantages', 'allies', 'Союзники'),
+								contacts: this.getAttribute('advantages', 'contacts', 'Связи'),
+								fame: this.getAttribute('advantages', 'fame', 'Слава'),
+								herd: this.getAttribute('advantages', 'herd', 'Стадо'),
+								influence: this.getAttribute('advantages', 'influence', 'Влияние'),
+								resources: this.getAttribute('advantages', 'resources', 'Ресурсы'),
+								retainers: this.getAttribute('advantages', 'retainers', 'Последователи'),
+								haven: this.getAttribute('advantages', 'haven', 'Убежище'),
+								mask: this.getAttribute('advantages', 'mask', 'Маска'),
+								status: this.getAttribute('advantages', 'status', 'Статус')
+							}
+						},
 
+					}
 				}
 			}
 		})
