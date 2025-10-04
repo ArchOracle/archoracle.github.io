@@ -167,7 +167,208 @@ class App extends Component {
 								status: this.getAttribute('advantages', 'status', 'Статус')
 							}
 						},
+						disciplines: {
+							name: 'Дисциплины',
+							data: this.getGroupInitData('disciplines'),
+							elements: {
+								animalism: this.getDiscipline(
+									'animalism',
+									'Анимализм',
+									['gangrel', 'brujah', 'nosferatu'],
+									[],
+									[],
+									'Дисциплина, управляющая животными и связанная с природными инстинктами.',
+									false
+								),
+								auspex: this.getDiscipline(
+									'auspex',
+									'Ауспекс',
+									['toreador', 'brujah', 'ravnos'],
+									[],
+									[],
+									'Прорицание, расширение восприятия: ясновидение, астральные чувства, чтение аур и мыслей.',
+									false
+								),
+								celerity: this.getDiscipline(
+									'celerity',
+									'Стремительность',
+									['brujah', 'gangrel', 'lasombra'],
+									[],
+									[],
+									'Сверхъестественная скорость — ускорение движений и реакции.',
+									false
+								),
+								dominate: this.getDiscipline(
+									'dominate',
+									'Доминирование',
+									['ventrue', 'tremere', 'lasombra'],
+									[],
+									[],
+									'Манипуляция разумом: приказы, обязательства, контроль и внушение.',
+									false
+								),
+								fortitude: this.getDiscipline(
+									'fortitude',
+									'Стойкость',
+									['toreador', 'gangrel', 'ventrue'],
+									[],
+									[],
+									'Устойчивость к урону, выживаемость и стойкость против сверхъестественных эффектов.',
+									false
+								),
+								obfuscate: this.getDiscipline(
+									'obfuscate',
+									'Сокрытие',
+									['nosferatu', 'malkavian', 'tremere'],
+									[],
+									[],
+									'Скрытие присутствия: маскировка, иллюзии, умение оставаться незаметным.',
+									false
+								),
+								potence: this.getDiscipline(
+									'potence',
+									'Могущество',
+									['brujah', 'gangrel', 'followers'],
+									[],
+									[],
+									'Физическая сила сверхчеловеческого уровня — усиление ударов, возможности ломать преграды.',
+									false
+								),
+								presence: this.getDiscipline(
+									'presence',
+									'Присутствие',
+									['toreador', 'ventrue', 'nosferatu'],
+									[],
+									[],
+									'Влияние на эмоции и волю — очарование, вдохновение, страх.',
+									false
+								),
+								protean: this.getDiscipline(
+									'protean',
+									'Превращение',
+									['gangrel', 'brujah', 'lasombra'],
+									['shapechange', 'claws', 'blooddrain'],
+									[],
+									'Дисциплина, позволяющая изменять форму: превращения, животные формы, когти.',
+									false
+								),
+								thaumaturgy: this.getDiscipline(
+									'thaumaturgy',
+									'Тауматургия',
+									['tremere'],
+									['alchemy', 'biothaumaturgy', 'movement_of_the_mind', 'green_path', 'oneiromancy'],
+									[],
+									'Кровная магия Тремеров — протауматургическая система с множеством путей.',
+									true
+								),
+								necromancy: this.getDiscipline(
+									'necromancy',
+									'Некромантия',
+									['giovanni', 'tremere'],
+									['cenotaph', 'bone', 'mortuus', 'ash', 'sepulchre', 'vitreous'],
+									[],
+									'Магия смерти: манипуляция душами, мёртвыми, путями смерти.',
+									true
+								),
+								obtenebration: this.getDiscipline(
+									'obtenebration',
+									'Обтенебрация',
+									['lasombra'],
+									[],
+									[],
+									'Дисциплина Теней — управление тьмой и тенями, создание плотных теневых форм.',
+									false
+								),
+								vicissitude: this.getDiscipline(
+									'vicissitude',
+									'Изменчивость',
+									['giovanni'],
+									[],
+									[],
+									'Изменение плоти и костей — дисциплина, дающая возможность модифицировать тело.',
+									false
+								),
+								dementation: this.getDiscipline(
+									'dementation',
+									'Помешательство',
+									['malkavian'],
+									[],
+									[],
+									'Искажение сознания, провокация безумия, создание иллюзий и фобий.',
+									false
+								),
+								melpominee: this.getDiscipline(
+									'melpominee',
+									'Мельпомения',
+									[],
+									[],
+									[],
+									'Дисциплина, связанная с музыкой, голосом и чарующим эффектом искусства.',
+									false
+								),
+								koldunic_sorcery: this.getDiscipline(
+									'koldunic_sorcery',
+									'Колдовство',
+									['ravnos'],
+									['way_of_wind', 'way_of_water', 'way_of_spirit', 'way_of_earth', 'way_of_fire', 'way_of_sorrow'],
+									[],
+									'Колдовство кельтско-горных традиций; содержит «пути» (ветры, воды, духа, земли, огня и скорби).',
+									true
+								),
+								assamite_sorcery: this.getDiscipline(
+									'assamite_sorcery',
+									'Чародейство Ассамитов',
+									['assamite'],
+									['hunters_winds', 'awakening_of_the_steel', 'whispers_of_the_heavens'],
+									[],
+									'Ассамитская традиция магии — набор путей и техник, основанных на боевых и мистических практиках.',
+									true
+								),
+								setite_sorcery: this.getDiscipline(
+									'setite_sorcery',
+									'Чародейство Сеттитов',
+									['setite'],
+									['hand_of_god', 'union_with_set', 'serpent_temptation', 'dried_nile_path', 'duat_path', 'ushebti'],
+									[],
+									'Сетитовская магия, связанная с культом Сета; содержит несколько путей/школ.',
+									true
+								),
+								spiritus: this.getDiscipline(
+									'spiritus',
+									'Шаманство',
+									[],
+									[],
+									[],
+									'Дисциплина, связанная с духами и шаманскими практиками; взаимодействие с духами, призыв и контроль.',
+									false
+								)
 
+								/**
+								animalism: this.getAttribute('disciplines', 'animalism', 'Анимализм'),
+								auspex: this.getAttribute('disciplines', 'auspex', 'Ауспекс'),
+								celerity: this.getAttribute('disciplines', 'celerity', 'Стремительность'),
+								dominate: this.getAttribute('disciplines', 'dominate', 'Доминирование'),
+								fortitude: this.getAttribute('disciplines', 'fortitude', 'Стойкость'),
+								obfuscate: this.getAttribute('disciplines', 'obfuscate', 'Сокрытие'),
+								necromancy: this.getAttribute('disciplines', 'necromancy', 'Некромантия'),
+								potence: this.getAttribute('disciplines', 'potence', 'Могущество'),
+								presence: this.getAttribute('disciplines', 'presence', 'Присутствие'),
+								protean: this.getAttribute('disciplines', 'protean', 'Протея'),
+								thaumaturgy: this.getAttribute('disciplines', 'thaumaturgy', 'Тауматургия'),
+								chimerstry: this.getAttribute('disciplines', 'chimerstry', 'Химерия'),
+								dementation: this.getAttribute('disciplines', 'dementation', 'Помешательство'),
+								obtenebration: this.getAttribute('disciplines', 'obtenebration', 'Обтенебрация'),
+								quietus: this.getAttribute('disciplines', 'quietus', 'Квиетус'),
+								serpentis: this.getAttribute('disciplines', 'serpentis', 'Серпентис'),
+								temporis: this.getAttribute('disciplines', 'temporis', 'Темпорис'),
+								visceratika: this.getAttribute('disciplines', 'visceratika', 'Висцератика'),
+								melpominee: this.getAttribute('disciplines', 'melpominee', 'Мельпоминея'),
+								mytherceria: this.getAttribute('disciplines', 'mytherceria', 'Митерсерия'),
+								valeren: this.getAttribute('disciplines', 'valeren', 'Валерен'),
+								obeah: this.getAttribute('disciplines', 'obeah', 'Обея')
+								 **/
+							}
+						},
 					}
 				}
 			}
@@ -271,6 +472,41 @@ class App extends Component {
 			type: this.getType(type)
 		}
 	}
+
+	getDiscipline(
+		code,           // string: уникальный идентификатор дисциплины
+		name,           // string: локализованное название
+		clans = [],     // array of strings: кланы, для которых дисциплина клановая
+		paths = [],     // array of strings: пути / ветви дисциплины
+		variants = [],  // array of strings: альтернативные версии / специализации
+		description = '', // string: описание дисциплины
+		ritualSupport = false // boolean: поддержка ритуалов
+	) {
+		// преобразуем пути и варианты в нужную структуру
+		const pathsObj = {};
+		paths.forEach(p => {
+			pathsObj[p] = {name: p, value: {permanent: 0, temporary: 0}}
+		});
+
+		const variantsObj = variants.map(v => ({name: v, value: {permanent: 0, temporary: 0}}));
+
+		return {
+			code: code,
+			name: name,
+			value: {permanent: 0, temporary: 0},
+			type: this.getType('points'),
+			clans: clans,
+			paths: pathsObj,
+			variants: variantsObj,
+			metadata: {
+				isClanDiscipline: clans.length > 0,
+				source: 'wod.su',
+				description: description,
+				ritualSupport: ritualSupport
+			}
+		};
+	}
+
 
 	getHeadInitElement(code, name) {
 		return {
