@@ -35,6 +35,130 @@ class App extends Component {
 		return App.instance
 	}
 
+	getClanList() {
+		return {
+			caitiff_generic: this.getClan(
+				'caitiff_generic',
+				'Каитифф (общий)',
+				['celerity', 'potence', 'presence', 'fortitude'],
+				'Каитиффы — вампиры без клана, часто с непредсказуемым характером. Их дисциплины разнообразны и зависят от происхождения.'
+			),
+
+			caitiff_feral: this.getClan(
+				'caitiff_feral',
+				'Каитифф дикий',
+				['animalism', 'protean', 'fortitude'],
+				'Дикие каитиффы ближе к природе и животным инстинктам. Часто агрессивны и непредсказуемы.'
+			),
+
+			caitiff_mystic: this.getClan(
+				'caitiff_mystic',
+				'Каитифф магический',
+				['thaumaturgy', 'auspex', 'obfuscate'],
+				'Каитиффы с магическими способностями. Их дисциплины могут включать элементы тауматургии и ясновидения.'
+			),
+
+			caitiff_urban: this.getClan(
+				'caitiff_urban',
+				'Каитифф городской',
+				['obfuscate', 'presence', 'celerity'],
+				'Городские каитиффы умеют маскироваться и влиять на людей, часто живут среди смертных незаметно.'
+			),
+			brujah: this.getClan(
+				'brujah',
+				'Бруха',
+				['celerity', 'potence', 'presence', 'dominate'],
+				'Клан Бруха известен своей яростью, страстью и физической силой. Они часто выступают как бунтари и революционеры.'
+			),
+
+			gangrel: this.getClan(
+				'gangrel',
+				'Гангрел',
+				['celerity', 'fortitude', 'protean', 'animalism'],
+				'Гангрелы связаны с природой и животными, славятся выносливостью и способностью к превращениям.'
+			),
+
+			nosferatu: this.getClan(
+				'nosferatu',
+				'Носферату',
+				['obfuscate', 'animalism', 'potence'],
+				'Клан носферату известен уродством и скрытностью. Они мастера маскировки и сбора информации.'
+			),
+
+			tremere: this.getClan(
+				'tremere',
+				'Тремер',
+				['thaumaturgy', 'dominate', 'auspex'],
+				'Клан Тремеров практикует тауматургию и магические исследования, строго иерархичен и секретен.'
+			),
+
+			ventrue: this.getClan(
+				'ventrue',
+				'Вентру',
+				['dominate', 'fortitude', 'presence', 'celerity'],
+				'Клан Вентру известен своей элитарностью, лидерством и влиянием на общество и политику.'
+			),
+
+			malkavian: this.getClan(
+				'malkavian',
+				'Малкавиан',
+				['auspex', 'dementation', 'obfuscate'],
+				'Клан Малкавиан известен своим безумием и пророческими способностями, часто непредсказуем и странен.'
+			),
+
+			toreador: this.getClan(
+				'toreador',
+				'Тореадор',
+				['auspex', 'celerity', 'presence'],
+				'Тореадоры ценят искусство, красоту и культуру, имеют обострённое чувство эстетики.'
+			),
+
+			lasombra: this.getClan(
+				'lasombra',
+				'Ласомбра',
+				['obtenebration', 'dominate', 'celerity'],
+				'Ласомбра — клан тьмы и теней, мастера манипуляций и контроля.'
+			),
+
+			giovanni: this.getClan(
+				'giovanni',
+				'Джованни',
+				['necromancy', 'vicissitude', 'potence'],
+				'Клан Джованни специализируется на некромантии и управлении смертью, а также на финансовой власти.'
+			),
+
+			setite: this.getClan(
+				'setite',
+				'Сетиты',
+				['serpentis', 'setite_sorcery'],
+				'Сетиты — клан, практикующий магию Сета и скрытные манипуляции, известен соблазнением и интригами.'
+			),
+
+			assamite: this.getClan(
+				'assamite',
+				'Ассамиты',
+				['quietus', 'assamite_sorcery'],
+				'Ассамиты — клан убийц и магов, мастера тихой смерти и магических техник.'
+			),
+
+			ravnos: this.getClan(
+				'ravnos',
+				'Равнос',
+				['chimerstry', 'koldunic_sorcery'],
+				'Равнос — кочевой клан, мастера иллюзий и колдовства, любители обмана и путешествий.'
+			)
+		}
+	}
+
+	getClan(code, name, disciplines, description) {
+		return {
+			code: code,
+			name: name,
+			disciplines: disciplines,
+			description: description
+		}
+	}
+
 	initStore() {
 		Alpine.store('state', {
 			sections: {
