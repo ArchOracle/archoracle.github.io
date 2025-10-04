@@ -33,12 +33,13 @@
 				</template>
 				<template x-for="(group, groupKey) in groups" :key="groupKey">
 					<div class="section__group">
-						<template x-if="group.name">
+						<template x-if="!!group.name">
 							<div class="section__group_name" x-text="group.name"></div>
 						</template>
 						<template x-if="!!group.data">
 							<div class="section__group_data">
-								<div x-if="!!group.data.isNeed">
+								<template x-if="!!group.data.isNeed">
+								<div>
 									<label>
 										<span>Важность: </span>
 										<select @change="(event) => App.instance.handleSelectImportance(sectionKey, groupKey, event.target.value)">
@@ -56,6 +57,7 @@
 										<span x-text="group.data.points.max"></span>
 									</div>
 								</div>
+								</template>
 							</div>
 						</template>
 						<template x-for="(element, elementKey) in group.elements" :key="elementKey">
