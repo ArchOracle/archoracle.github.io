@@ -703,6 +703,20 @@ class App extends Component {
 		};
 	}
 
+	isShowDiscipline(code) {
+		return true;// Позже разберусь когда надо скрывать/показывать дисциплины
+		// const discipline = this.getDisciplineByCode(code)
+		// return discipline.clans.includes(this.getCurrentClan().value) || discipline.clans.length === 0
+	}
+
+	getDisciplineByCode(code) {
+		return this.getState().sections.advantages.groups.disciplines.elements[code]
+	}
+
+	getCurrentClan() {
+		return this.getState().sections.head.groups.person.elements.clan
+	}
+
 	getAspectInitLis() {
 		let list = {}
 		for (let i = 0; i < 6; i++) {
