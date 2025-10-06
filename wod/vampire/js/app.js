@@ -535,6 +535,26 @@ class App extends Component {
 									type: this.getType('number')
 								}
 							}
+						},
+						health: {
+							name: 'Здоровье',
+							data: {
+								damage_type: {
+									none: {
+										name: 'Цел'
+									},
+									bashing: {
+										name: 'Ударные'
+									},
+									lethal: {
+										name: 'Летальные'
+									},
+									aggravated: {
+										name: 'Непоглощаемые (аграва)'
+									}
+								},
+							},
+							elements: this.initHealthTrack()
 						}
 					}
 				}
@@ -690,6 +710,41 @@ class App extends Component {
 	}
 
 
+
+
+	initHealthTrack() {
+		const list = {}
+
+		list['bruised'] = this.createHealthPoint('bruised', 'Задет', 0)
+		list['hurt'] = this.createHealthPoint('hurt', 'Повреждён', -1)
+		list['injured'] = this.createHealthPoint('injured', 'Ранен', -1)
+		list['wounded'] = this.createHealthPoint('wounded', 'Тяжело ранен', -2)
+		list['mauled'] = this.createHealthPoint('mauled', 'Травмирован', -2)
+		list['crippled'] = this.createHealthPoint('crippled', 'Искалечен', -5)
+		list['incapacitated'] = this.createHealthPoint('incapacitated', 'Обездвижен', -99)
+		list['torpor'] = this.createHealthPoint('torpor', 'Торпор', -999)
+
+		list['weakness'] = {
+			name: 'Слабость',
+			value: '',
+			type: this.getType('weakness')
+		}
+
+		return list
+	}
+
+
+	createHealthPoint(id, name, fine = 0, damage_type = 'none') {
+		return {
+			name: name,
+			value: {
+				damage_type
+			},
+			fine: fine,
+			type: this.getType('health_point')
+		}
+	}
+
 	getHeadInitElement(code, name) {
 		return {
 			name: name,
@@ -699,6 +754,12 @@ class App extends Component {
 	}
 
 	getType(type = 'number') {
+		if (type === 'health_point') {
+			type = "number"
+		}
+		if (type === 'weakness') {
+			type = "text"
+		}
 		if (type === 'points') {
 			return {
 				typeCode: type,
