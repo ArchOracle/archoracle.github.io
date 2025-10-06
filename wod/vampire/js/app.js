@@ -760,6 +760,9 @@ class App extends Component {
 		if (type === 'weakness') {
 			type = "text"
 		}
+		if (type === 'clan') {
+			type = "text"
+		}
 		if (type === 'points') {
 			return {
 				typeCode: type,
