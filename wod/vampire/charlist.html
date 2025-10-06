@@ -88,6 +88,21 @@
 										       style="width: 30px">
 									</label>
 								</template>
+								<template x-if="element.type.typeCode === 'clan'" data-type="clan">
+									<div>
+										<span x-text="element.name"></span>
+										<span>: </span>
+										<label>
+											<select x-model="element.value">
+												<template x-for="(clan, clanCode) in App.get().getClanList()"
+														  :key="clanCode">
+													<option :value="clanCode" x-text="clan.name"
+															:title="clan.description"></option>
+												</template>
+											</select>
+										</label>
+									</div>
+								</template>
 							</div>
 						</template>
 					</div>

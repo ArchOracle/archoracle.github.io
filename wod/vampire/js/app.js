@@ -37,6 +37,12 @@ class App extends Component {
 
 	getClanList() {
 		return {
+			none: {
+				code: 'none',
+				name: 'Не выбрано',
+				disciplines: [],
+				description: 'Выберите клан!'
+			},
 			caitiff_generic: this.getClan(
 				'caitiff_generic',
 				'Каитифф (общий)',
@@ -749,9 +755,10 @@ class App extends Component {
 		const isGeneration = code === 'generation'
 		const isClan = code === 'clan'
 		const typeCode = isGeneration ? 'number' : (isClan ? 'clan' : 'text')
+		const value = isGeneration ? 13 : (isClan ? 'none' : '')
 		return {
 			name: name,
-			value: isGeneration ? 13 : '',
+			value: value,
 			type: this.getType(typeCode),
 		}
 	}
@@ -764,7 +771,9 @@ class App extends Component {
 			type = "text"
 		}
 		if (type === 'clan') {
-			type = "text"
+			return  {
+				typeCode: type
+			}
 		}
 		if (type === 'points') {
 			return {
