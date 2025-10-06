@@ -798,6 +798,11 @@ class App extends Component {
 				maxLength: 5
 			}
 		}
+		if (type === 'discipline') {
+			return {
+				typeCode: type
+			}
+		}
 		if (type === 'text' || type === 'number') {
 			return {
 				typeCode: type
