@@ -24,7 +24,7 @@
 			<div class="title__vampire_letter_e"><span>e</span></div>
 			<div class="title__vampire_letters_other__bottom">the masquerade</div>
 		</div>
-		<template x-for="(section, sectionKey) in $store.state.sections" :key="sectionKey">
+		<template x-for="(section, sectionKey) in App.instance.getState().sections" :key="sectionKey">
 			<div class="section" x-data="section">
 				<template x-if="!!section.name">
 					<div class="section__name">
