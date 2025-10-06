@@ -493,6 +493,17 @@ class App extends Component {
 								 **/
 							}
 						},
+						virtues: {
+							name: 'Добродетели',
+							data: this.getGroupInitData('advantages'),
+							elements: {
+								consciousness: this.getAttribute('advantages', 'consciousness', 'Сознательность'),
+								conviction: this.getAttribute('advantages', 'conviction', 'Убеждённость'),
+								self_control: this.getAttribute('advantages', 'self_control', 'Самоконтроль'),
+								instincts: this.getAttribute('advantages', 'instincts', 'Инстинкты'),
+								courage: this.getAttribute('advantages', 'courage', 'Смелость'),
+							}
+						}
 					}
 				}
 			}
