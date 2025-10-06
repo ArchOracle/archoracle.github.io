@@ -1,9 +1,11 @@
 #app {
     display: flex;
-    & > div {
-        border: 1px solid black;
-          min-height: 1500px;
-    }
+    justify-content: space-between;
+}
+
+#app > div {
+    border: 1px solid black;
+    min-height: 1500px;
 }
 
 /* region Лево*/
