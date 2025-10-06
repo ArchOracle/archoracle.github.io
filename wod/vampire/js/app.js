@@ -662,6 +662,7 @@ class App extends Component {
 				permanent: section === 'attributes' ? 1 : 0,
 				temporary: section === 'attributes' ? 1 : 0
 			},
+			maxLevel: 5,
 			type: this.getType(type)
 		}
 	}
@@ -673,7 +674,8 @@ class App extends Component {
 		paths = [],     // array of strings: пути / ветви дисциплины
 		variants = [],  // array of strings: альтернативные версии / специализации
 		description = '', // string: описание дисциплины
-		ritualSupport = false // boolean: поддержка ритуалов
+		ritualSupport = false, // boolean: поддержка ритуалов
+		maxLevel = 5
 	) {
 		// преобразуем пути и варианты в нужную структуру
 		const pathsObj = {};
@@ -687,7 +689,8 @@ class App extends Component {
 			code: code,
 			name: name,
 			value: {permanent: 0, temporary: 0},
-			type: this.getType('points'),
+			maxLevel: maxLevel,
+			type: this.getType('discipline'),
 			clans: clans,
 			paths: pathsObj,
 			variants: variantsObj,
