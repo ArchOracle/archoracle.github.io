@@ -588,7 +588,7 @@ class App extends Component {
 		if (section === 'skills' && this.orderNumber === 4) {
 			this.orderNumber = 1
 		}
-		if (section !== 'attributes' || section !== 'skills') {
+		if (section !== 'attributes' && section !== 'skills') {
 			return {
 				isNeed: false
 			}
