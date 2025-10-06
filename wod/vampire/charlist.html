@@ -1,116 +1,126 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8">
-	<title>Чарник вампиров</title>
-	<link rel="stylesheet" href="css/app.css">
-	<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
-	<script src="js/app.js"></script>
+    <meta charset="UTF-8">
+    <title>Чарник вампиров</title>
+    <link rel="stylesheet" href="css/app.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script src="js/app.js"></script>
 </head>
 <body>
 <div id="app" x-data="ao = App.get()">
-	<div id="left"></div>
-	<div id="center">
-		<div class="title">
-<!--			VAMPIRE: THE MASQUERADE-->
-			<div class="title__vampire_letter_v"><span>v</span></div>
-			<div class="title__vampire_letters_other__top">
-				<span>a</span>
-				<span>m</span>
-				<span>p</span>
-				<span>i</span>
-				<span>r</span>
-			</div>
-			<div class="title__vampire_letter_e"><span>e</span></div>
-			<div class="title__vampire_letters_other__bottom">the masquerade</div>
-		</div>
-		<template x-for="(section, sectionKey) in App.instance.getState().sections" :key="sectionKey">
-			<div class="section" x-data="section">
-				<template x-if="!!section.name">
-					<div class="section__name">
-						<div x-text="section.name"></div>
-					</div>
-				</template>
-				<template x-for="(group, groupKey) in groups" :key="groupKey">
-					<div class="section__group">
-						<template x-if="!!group.name">
-							<div class="section__group_name" x-text="group.name"></div>
-						</template>
-						<template x-if="!!group.data">
-							<div class="section__group_data">
-								<template x-if="!!group.data.isNeed">
-								<div>
-									<label>
-										<span>Важность: </span>
-										<select @change="(event) => App.instance.handleSelectImportance(sectionKey, groupKey, event.target.value)">
-											<option :selected="group.data.orderNumber == 0" value="0">Не выбрано
-											</option>
-											<option :selected="group.data.orderNumber == 1" value="1">Первичные</option>
-											<option :selected="group.data.orderNumber == 2" value="2">Вторичные</option>
-											<option :selected="group.data.orderNumber == 3" value="3">Третичные</option>
-										</select>
-									</label>
-									<div title="Вложенные / Максимально доступные">
-										<span>Вложенные очки: </span>
-										<span x-text="group.data.points.current"></span>
-										<span> / </span>
-										<span x-text="group.data.points.max"></span>
-									</div>
-								</div>
-								</template>
-							</div>
-						</template>
-						<template x-for="(element, elementKey) in group.elements" :key="elementKey">
-							<div class="section__element" x-data="element">
-								<template x-if="element.type.typeCode == 'text'" data-type="text">
-									<label>
-										<span x-text="element.name"></span>
-										<span>: </span>
-										<input type="text" x-model="element.value" style="width: 100px">
-									</label>
-								</template>
-								<template x-if="element.type.typeCode == 'number'" data-type="number">
-									<label>
-										<span x-text="element.name"></span>
-										<span>: </span>
-										<input type="number" x-model="element.value" style="width: 30px">
-									</label>
-								</template>
-								<template x-if="element.type.typeCode == 'points'" data-type="points">
-									<label title="Временное значение / Постоянное значение">
-										<span x-text="element.name"></span><span>: </span>
-										<input type="number" x-model="element.value.temporary"
-										       style="width: 30px">
-										<span> / </span>
-										<input type="number"
-										       x-model="element.value.permanent"
-										       x-init="$watch('element.value.permanent', (value, oldValue) => App.instance.handleIncrementTraitValue(sectionKey, groupKey, elementKey, value, oldValue))"
-										       style="width: 30px">
-									</label>
-								</template>
-								<template x-if="element.type.typeCode === 'clan'" data-type="clan">
-									<div>
-										<span x-text="element.name"></span>
-										<span>: </span>
-										<label>
-											<select x-model="element.value">
-												<template x-for="(clan, clanCode) in App.get().getClanList()"
-														  :key="clanCode">
-													<option :value="clanCode" x-text="clan.name"
-															:title="clan.description"></option>
-												</template>
-											</select>
-										</label>
-									</div>
-								</template>
-							</div>
-						</template>
-					</div>
-				</template>
-			</div>
-		</template>
-	</div>
-	<div id="right"></div>
+    <div id="left"></div>
+    <div id="center">
+        <div class="title">
+            <!--			VAMPIRE: THE MASQUERADE-->
+            <div class="title__vampire_letter_v"><span>v</span></div>
+            <div class="title__vampire_letters_other__top">
+                <span>a</span>
+                <span>m</span>
+                <span>p</span>
+                <span>i</span>
+                <span>r</span>
+            </div>
+            <div class="title__vampire_letter_e"><span>e</span></div>
+            <div class="title__vampire_letters_other__bottom">the masquerade</div>
+        </div>
+        <template x-for="(section, sectionKey) in App.instance.getState().sections" :key="sectionKey">
+            <div class="section" x-data="section">
+                <template x-if="!!section.name">
+                    <div class="section__name">
+                        <div x-text="section.name"></div>
+                    </div>
+                </template>
+                <template x-for="(group, groupKey) in groups" :key="groupKey">
+                    <div class="section__group">
+                        <template x-if="!!group.name">
+                            <div class="section__group_name" x-text="group.name"></div>
+                        </template>
+                        <template x-if="!!group.data">
+                            <div class="section__group_data">
+                                <template x-if="!!group.data.isNeed">
+                                    <div>
+                                        <label>
+                                            <span>Важность: </span>
+                                            <select @change="(event) => App.instance.handleSelectImportance(sectionKey, groupKey, event.target.value)">
+                                                <option :selected="group.data.orderNumber == 0" value="0">Не выбрано
+                                                </option>
+                                                <option :selected="group.data.orderNumber == 1" value="1">Первичные
+                                                </option>
+                                                <option :selected="group.data.orderNumber == 2" value="2">Вторичные
+                                                </option>
+                                                <option :selected="group.data.orderNumber == 3" value="3">Третичные
+                                                </option>
+                                            </select>
+                                        </label>
+                                        <div title="Вложенные / Максимально доступные">
+                                            <span>Вложенные очки: </span>
+                                            <span x-text="group.data.points.current"></span>
+                                            <span> / </span>
+                                            <span x-text="group.data.points.max"></span>
+                                        </div>
+                                    </div>
+                                </template>
+                            </div>
+                        </template>
+                        <template x-for="(element, elementKey) in group.elements" :key="elementKey">
+                            <div class="section__element" x-data="element">
+                                <template x-if="element.type.typeCode == 'text'" data-type="text">
+                                    <label>
+                                        <span x-text="element.name"></span>
+                                        <span>: </span>
+                                        <input type="text" x-model="element.value" style="width: 100px">
+                                    </label>
+                                </template>
+                                <template x-if="element.type.typeCode == 'number'" data-type="number">
+                                    <label>
+                                        <span x-text="element.name"></span>
+                                        <span>: </span>
+                                        <input type="number" x-model="element.value" style="width: 30px">
+                                    </label>
+                                </template>
+                                <template x-if="element.type.typeCode == 'points'" data-type="points">
+                                    <div x-html="Points.getRawHtml()"></div>
+                                </template>
+                                <template x-if="element.type.typeCode == 'points_'" data-type="points_">
+                                    <label title="Временное значение / Постоянное значение">
+                                        <span x-text="element.name"></span><span>: </span>
+                                        <input type="number" x-model="element.value.temporary"
+                                               style="width: 30px">
+                                        <span> / </span>
+                                        <input type="number"
+                                               x-model="element.value.permanent"
+                                               x-init="$watch('element.value.permanent', (value, oldValue) => App.instance.handleIncrementTraitValue(sectionKey, groupKey, elementKey, value, oldValue))"
+                                               style="width: 30px">
+                                    </label>
+                                </template>
+                                <template x-if="element.type.typeCode === 'clan'" data-type="clan">
+                                    <div>
+                                        <span x-text="element.name"></span>
+                                        <span>: </span>
+                                        <label>
+                                            <select x-model="element.value">
+                                                <template x-for="(clan, clanCode) in App.get().getClanList()"
+                                                          :key="clanCode">
+                                                    <option :value="clanCode" x-text="clan.name"
+                                                            :title="clan.description"></option>
+                                                </template>
+                                            </select>
+                                        </label>
+                                    </div>
+                                </template>
+                                <template x-if="element.type.typeCode === 'discipline'" data-type="discipline">
+                                    <div x-show="App.get().isShowDiscipline(element.code)" x-html="Points.getRawHtml()">
+                                    </div>
+                                </template>
+                            </div>
+                        </template>
+                    </div>
+                </template>
+            </div>
+        </template>
+    </div>
+    <div id="right"></div>
 </div>
 </body>
 </html>
