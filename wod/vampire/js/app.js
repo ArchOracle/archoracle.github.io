@@ -505,6 +505,38 @@ class App extends Component {
 							}
 						}
 					}
+				},
+				other: {
+					groups: {
+						aspects: {
+							name: 'Преимущества и недостатки',
+							elements: this.getAspectInitLis()
+						},
+						humanity_willpower_blood: {
+							elements: {
+								humanity: {
+									name: 'Человечность / Путь',
+									value: 'humanity',
+									type: this.getType('text')
+								},
+								willpower: {
+									name: 'Сила Воли',
+									value: {
+										permanent: 7,
+										current: 6
+									},
+									type: this.getType('number')
+								},
+								blood: {
+									name: 'Запас крови',
+									value: {
+										current: 5
+									},
+									type: this.getType('number')
+								}
+							}
+						}
+					}
 				}
 			}
 		})
@@ -640,6 +672,21 @@ class App extends Component {
 				ritualSupport: ritualSupport
 			}
 		};
+	}
+
+	getAspectInitLis() {
+		let list = {}
+		for (let i = 0; i < 6; i++) {
+			list['empty_aspect_' + i] = {
+				name: '',
+				value: {
+					effect: 0,
+					is_good: false
+				},
+				type: this.getType('text')
+			}
+		}
+		return list
 	}
 
 
