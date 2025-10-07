@@ -948,4 +948,20 @@ class Text extends Type {
 	}
 }
 
+class NumberType extends Type {
+	constructor() {
+		super('number');
+	}
+
+	getRawHtml() {
+		return `
+		<label>
+			<span x-text="element.name"></span>
+			<span>: </span>
+			<input type="number" x-model="element.value" style="width: 30px">
+		</label>
+		`
+	}
+}
+
 //endregion
