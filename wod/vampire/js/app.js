@@ -733,17 +733,6 @@ class App extends Component {
 		}
 	}
 
-	getHeadInitElement(code, name) {
-		const isGeneration = code === 'generation'
-		const isClan = code === 'clan'
-		const typeCode = isGeneration ? 'number' : (isClan ? 'clan' : 'text')
-		const value = isGeneration ? 13 : (isClan ? 'none' : '')
-		return {
-			name: name,
-			value: value,
-			type: this.getType(typeCode),
-		}
-	}
 
 }
 
