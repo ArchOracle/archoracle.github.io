@@ -793,13 +793,14 @@ class SectionFactory {
 	}
 }
 
-class Section {
+class Section extends Component {
 
 	code
 	name
 	groups
 
 	constructor(code, name, groups) {
+		super(code)
 		this.code = code
 		this.name = name
 		this.groups = groups
