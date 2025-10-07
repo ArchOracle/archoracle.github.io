@@ -890,11 +890,17 @@ class Tools {
 //region Типы элементов
 
 class TypeFactory {
+	static typeList = {
+		text: () => new Text(),
+		number: () => new NumberType(),
+		points: () => new Points(),
+		clan: () => new Clan(),
+		discipline: () => new Points(),
+		health_point: () => new HealthPoint(),
+		weakness: () => new Weakness()
+	}
 	static get(typeCode) {
-		if (typeCode === 'points') {
-			return new Points();
-		}
-		return new Type(typeCode)
+		return TypeFactory.typeList[typeCode]()
 	}
 }
 
