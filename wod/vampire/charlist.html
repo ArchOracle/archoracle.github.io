@@ -64,56 +64,7 @@
                             </div>
                         </template>
                         <template x-for="(element, elementKey) in group.elements" :key="elementKey">
-                            <div class="section__element" x-data="element">
-                                <template x-if="element.type.typeCode == 'text'" data-type="text">
-                                    <label>
-                                        <span x-text="element.name"></span>
-                                        <span>: </span>
-                                        <input type="text" x-model="element.value" style="width: 100px">
-                                    </label>
-                                </template>
-                                <template x-if="element.type.typeCode == 'number'" data-type="number">
-                                    <label>
-                                        <span x-text="element.name"></span>
-                                        <span>: </span>
-                                        <input type="number" x-model="element.value" style="width: 30px">
-                                    </label>
-                                </template>
-                                <template x-if="element.type.typeCode == 'points'" data-type="points">
-                                    <div x-html="Points.getRawHtml()"></div>
-                                </template>
-                                <template x-if="element.type.typeCode == 'points_'" data-type="points_">
-                                    <label title="Временное значение / Постоянное значение">
-                                        <span x-text="element.name"></span><span>: </span>
-                                        <input type="number" x-model="element.value.temporary"
-                                               style="width: 30px">
-                                        <span> / </span>
-                                        <input type="number"
-                                               x-model="element.value.permanent"
-                                               x-init="$watch('element.value.permanent', (value, oldValue) => App.instance.handleIncrementTraitValue(sectionKey, groupKey, elementKey, value, oldValue))"
-                                               style="width: 30px">
-                                    </label>
-                                </template>
-                                <template x-if="element.type.typeCode === 'clan'" data-type="clan">
-                                    <div>
-                                        <span x-text="element.name"></span>
-                                        <span>: </span>
-                                        <label>
-                                            <select x-model="element.value">
-                                                <template x-for="(clan, clanCode) in App.get().getClanList()"
-                                                          :key="clanCode">
-                                                    <option :value="clanCode" x-text="clan.name"
-                                                            :title="clan.description"></option>
-                                                </template>
-                                            </select>
-                                        </label>
-                                    </div>
-                                </template>
-                                <template x-if="element.type.typeCode === 'discipline'" data-type="discipline">
-                                    <div x-show="App.get().isShowDiscipline(element.code)" x-html="Points.getRawHtml()">
-                                    </div>
-                                </template>
-                            </div>
+                            <div class="section__element" x-data="element" x-html="element.type.getRawHtml()"></div>
                         </template>
                     </div>
                 </template>
