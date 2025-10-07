@@ -1,9 +1,9 @@
 class Component {
-	name
+	componentName
 	bindList
 
-	constructor(name) {
-		this.name = name
+	constructor(componentName) {
+		this.componentName = componentName
 		this.bindList = {
 			["@request.window"]: (event) => {
 				this.handleRequest(event.detail)
@@ -44,11 +44,11 @@ class Component {
 	init() {}
 
 	handleRequest(data) {
-		console.log(['request', this.name, data])
+		console.log(['request', this.componentName, data])
 	}
 
 	handleResponse(data) {
-		console.log(['response', this.name, data])
+		console.log(['response', this.componentName, data])
 	}
 }
 
