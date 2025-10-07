@@ -812,6 +812,25 @@ class App extends Component {
 	}
 }
 
+class SectionFactory {
+	static initSection(code, name, groups) {
+		return new Section(code, name, groups)
+	}
+}
+
+class Section {
+
+	code
+	name
+	groups
+
+	constructor(code, name, groups) {
+		this.code = code
+		this.name = name
+		this.groups = groups
+	}
+}
+
 class Tools {
 	static encodeBase64(str) {
 		return btoa(unescape(encodeURIComponent(str)));
