@@ -827,12 +827,12 @@ class Points {
 		return `
 			<span x-text="element.name"></span>
 			<span>: </span>
-			<div class="points" style="display: inline-block">
+			<div class="points" style="display: inline-block" x-init="console.log(element)">
 				<template x-for="i in element.maxLevel" :key="i">
 					<input
 							type="checkbox"
-							:data-level="i+1"
-							:checked="i+1 <= element.value.permanent"
+							:data-level="i"
+							:checked="i <= element.value.permanent"
 							@change="(event) => {element.value.permanent = event.target.dataset.level}"
 					>
 				</template>
