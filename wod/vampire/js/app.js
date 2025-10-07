@@ -915,6 +915,14 @@ class Element extends Component {
 		this.value = value
 		this.type = type
 	}
+
+	get minLevel() {
+		return 0
+	}
+
+	get maxLevel() {
+		return 5
+	}
 }
 
 class HeadElement extends Element {
