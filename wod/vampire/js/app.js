@@ -1,10 +1,55 @@
 class Component {
 	name
+	bindList
 
 	constructor(name) {
 		this.name = name
+		this.bindList = {
+			["@request.window"]: (event) => {
+				this.handleRequest(event.detail)
+			},
+			"@response.window"(event) {
+				this.handleResponse(event.detail)
+			}
+		}
 	}
 
+	addToBindList(attribute, value) {
+		this.bindList[attribute] = value
+		return this
+	}
+
+	sendRequest(data) {
+		this.send('request', {
+			data: data
+		})
+	}
+
+	sendResponse(data) {
+		this.send('response', {
+			data: data
+		})
+	}
+
+	send(type, payload) {
+		this.$dispatch(type, payload)//Магия alpine, не спрашивайте
+	}
+
+	bind() {
+		return () => {
+			return this.bindList
+		}
+	}
+
+	init() {}
+
+	handleRequest(data) {
+		console.log(['request', this.name, data])
+	}
+
+	handleResponse(data) {
+		console.log(['response', this.name, data])
+	}
 }
 
 class App extends Component {
@@ -30,7 +75,6 @@ class App extends Component {
 	static get() {
 		if (!App.instance) {
 			App.instance = new App('app')
-			App.instance.initStore()
 		}
 		return App.instance
 	}
@@ -163,6 +207,11 @@ class App extends Component {
 			disciplines: disciplines,
 			description: description
 		}
+	}
+
+	init() {
+		super.init()
+		this.initStore()
 	}
 
 	initStore() {
