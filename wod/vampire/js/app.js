@@ -788,6 +788,14 @@ class App extends Component {
 //region Секции
 
 class SectionFactory {
+	static sectionList = {
+		head: () => new HeadSection(),
+	}
+
+	static get(code) {
+		return SectionFactory.sectionList[code]()
+	}
+
 	static initSection(code, name, groups) {
 		return new Section(code, name, groups)
 	}
