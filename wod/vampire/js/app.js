@@ -168,8 +168,7 @@ class App extends Component {
 	initStore() {
 		Alpine.store('state', {
 			sections: {
-				head: {
-					groups: {
+				head: SectionFactory.initSection('head', '',	{
 						game: {
 							elements: {
 								name: this.getHeadInitElement('name', 'Имя'),
@@ -191,379 +190,367 @@ class App extends Component {
 								concept: this.getHeadInitElement('concept', 'Концепт')
 							}
 						}
-					}
-				},
-				attributes: {
-					name: 'Атрибуты',
-					groups: {
-						physical: {
-							name: 'Физические',
-							data: this.getGroupInitData('attributes'),
-							elements: {
-								strength: this.getAttribute('attributes', 'strength', 'Сила'),
-								agility: this.getAttribute('attributes', 'agility', 'Ловкость'),
-								stamina: this.getAttribute('attributes', 'stamina', 'Выносливость'),
-							}
-						},
-						social: {
-							name: 'Социальные',
-							data: this.getGroupInitData('attributes'),
-							elements: {
-								charm: this.getAttribute('attributes', 'charm', 'Обаяние'),
-								manipulation: this.getAttribute('attributes', 'manipulation', 'Манипуляция'),
-								appearance: this.getAttribute('attributes', 'appearance', 'Внешность'),
-							}
-						},
-						mental: {
-							name: 'Ментальные',
-							data: this.getGroupInitData('attributes'),
-							elements: {
-								perception: this.getAttribute('attributes', 'perception', 'Восприятие'),
-								intelligence: this.getAttribute('attributes', 'intelligence', 'Интеллект'),
-								savvy: this.getAttribute('attributes', 'savvy', 'Смекалка'),
-							}
+					}),
+				attributes: SectionFactory.initSection('attributes', 'Атрибуты', {
+					physical: {
+						name: 'Физические',
+						data: this.getGroupInitData('attributes'),
+						elements: {
+							strength: this.getAttribute('attributes', 'strength', 'Сила'),
+							agility: this.getAttribute('attributes', 'agility', 'Ловкость'),
+							stamina: this.getAttribute('attributes', 'stamina', 'Выносливость'),
+						}
+					},
+					social: {
+						name: 'Социальные',
+						data: this.getGroupInitData('attributes'),
+						elements: {
+							charm: this.getAttribute('attributes', 'charm', 'Обаяние'),
+							manipulation: this.getAttribute('attributes', 'manipulation', 'Манипуляция'),
+							appearance: this.getAttribute('attributes', 'appearance', 'Внешность'),
+						}
+					},
+					mental: {
+						name: 'Ментальные',
+						data: this.getGroupInitData('attributes'),
+						elements: {
+							perception: this.getAttribute('attributes', 'perception', 'Восприятие'),
+							intelligence: this.getAttribute('attributes', 'intelligence', 'Интеллект'),
+							savvy: this.getAttribute('attributes', 'savvy', 'Смекалка'),
 						}
 					}
-				},
-				skills: {
-					name: 'Способности',
-					groups: {
-						talents: {
-							name: 'Таланты',
-							data: this.getGroupInitData('skills'),
-							elements: {
-								athletics: this.getAttribute('skills', 'athletics', 'Атлетика'),
-								attention: this.getAttribute('skills', 'attention', 'Внимательность'),
-								intimidation: this.getAttribute('skills', 'intimidation', 'Запугивание'),
-								streetwise: this.getAttribute('skills', 'streetwise', 'Знание Улиц'),
-								leadership: this.getAttribute('skills', 'leadership', 'Лидерство'),
-								melee: this.getAttribute('skills', 'melee', 'Рукопашный Бой'),
-								evasion: this.getAttribute('skills', 'evasion', 'Уклонение'),
-								cunning: this.getAttribute('skills', 'cunning', 'Хитрость'),
-								expression: this.getAttribute('skills', 'expression', 'Экспрессия'),
-								empathy: this.getAttribute('skills', 'empathy', 'Эмпатия'),
-							}
-						},
-						capabilities: {
-							name: 'Навыки',
-							data: this.getGroupInitData('skills'),
-							elements: {
-								security: this.getAttribute('skills', 'security', 'Безопасность'),
-								driving: this.getAttribute('skills', 'driving', 'Вождение'),
-								survival: this.getAttribute('skills', 'survival', 'Выживание'),
-								execution: this.getAttribute('skills', 'execution', 'Исполнение'),
-								knowledge_animals: this.getAttribute('skills', 'knowledge_animals', 'Знание Животных'),
-								crafts: this.getAttribute('skills', 'crafts', 'Ремесла'),
-								stealth: this.getAttribute('skills', 'stealth', 'Скрытность'),
-								shooting: this.getAttribute('skills', 'shooting', 'Стрельба'),
-								fencing: this.getAttribute('skills', 'fencing', 'Фехтование'),
-								etiquette: this.getAttribute('skills', 'etiquette', 'Этикет'),
-							}
-						},
-						knowledge: {
-							name: 'Познания',
-							data: this.getGroupInitData('skills'),
-							elements: {
-								academics: this.getAttribute('skills', 'academics', 'Академические'),
-								laws: this.getAttribute('skills', 'laws', 'Законы'),
-								computers: this.getAttribute('skills', 'computers', 'Компьютеры'),
-								linguistics: this.getAttribute('skills', 'linguistics', 'Лингвистика'),
-								medicine: this.getAttribute('skills', 'medicine', 'Медицина'),
-								sciences: this.getAttribute('skills', 'sciences', 'Научные'),
-								occult: this.getAttribute('skills', 'occult', 'Оккультизм'),
-								politics: this.getAttribute('skills', 'politics', 'Политикa'),
-								investigations: this.getAttribute('skills', 'investigations', 'Расследования'),
-								finance: this.getAttribute('skills', 'finance', 'Финансы'),
-							}
+				}),
+				skills: SectionFactory.initSection('skills', 'Способности', {
+					talents: {
+						name: 'Таланты',
+						data: this.getGroupInitData('skills'),
+						elements: {
+							athletics: this.getAttribute('skills', 'athletics', 'Атлетика'),
+							attention: this.getAttribute('skills', 'attention', 'Внимательность'),
+							intimidation: this.getAttribute('skills', 'intimidation', 'Запугивание'),
+							streetwise: this.getAttribute('skills', 'streetwise', 'Знание Улиц'),
+							leadership: this.getAttribute('skills', 'leadership', 'Лидерство'),
+							melee: this.getAttribute('skills', 'melee', 'Рукопашный Бой'),
+							evasion: this.getAttribute('skills', 'evasion', 'Уклонение'),
+							cunning: this.getAttribute('skills', 'cunning', 'Хитрость'),
+							expression: this.getAttribute('skills', 'expression', 'Экспрессия'),
+							empathy: this.getAttribute('skills', 'empathy', 'Эмпатия'),
+						}
+					},
+					capabilities: {
+						name: 'Навыки',
+						data: this.getGroupInitData('skills'),
+						elements: {
+							security: this.getAttribute('skills', 'security', 'Безопасность'),
+							driving: this.getAttribute('skills', 'driving', 'Вождение'),
+							survival: this.getAttribute('skills', 'survival', 'Выживание'),
+							execution: this.getAttribute('skills', 'execution', 'Исполнение'),
+							knowledge_animals: this.getAttribute('skills', 'knowledge_animals', 'Знание Животных'),
+							crafts: this.getAttribute('skills', 'crafts', 'Ремесла'),
+							stealth: this.getAttribute('skills', 'stealth', 'Скрытность'),
+							shooting: this.getAttribute('skills', 'shooting', 'Стрельба'),
+							fencing: this.getAttribute('skills', 'fencing', 'Фехтование'),
+							etiquette: this.getAttribute('skills', 'etiquette', 'Этикет'),
+						}
+					},
+					knowledge: {
+						name: 'Познания',
+						data: this.getGroupInitData('skills'),
+						elements: {
+							academics: this.getAttribute('skills', 'academics', 'Академические'),
+							laws: this.getAttribute('skills', 'laws', 'Законы'),
+							computers: this.getAttribute('skills', 'computers', 'Компьютеры'),
+							linguistics: this.getAttribute('skills', 'linguistics', 'Лингвистика'),
+							medicine: this.getAttribute('skills', 'medicine', 'Медицина'),
+							sciences: this.getAttribute('skills', 'sciences', 'Научные'),
+							occult: this.getAttribute('skills', 'occult', 'Оккультизм'),
+							politics: this.getAttribute('skills', 'politics', 'Политикa'),
+							investigations: this.getAttribute('skills', 'investigations', 'Расследования'),
+							finance: this.getAttribute('skills', 'finance', 'Финансы'),
 						}
 					}
-				},
-				advantages: {
-					name: 'Преимущества',
-					groups: {
-						additions: {
-							name: 'Дополнения',
-							data: this.getGroupInitData('advantages'),
-							elements: {
-								allies: this.getAttribute('advantages', 'allies', 'Союзники'),
-								contacts: this.getAttribute('advantages', 'contacts', 'Связи'),
-								fame: this.getAttribute('advantages', 'fame', 'Слава'),
-								herd: this.getAttribute('advantages', 'herd', 'Стадо'),
-								influence: this.getAttribute('advantages', 'influence', 'Влияние'),
-								resources: this.getAttribute('advantages', 'resources', 'Ресурсы'),
-								retainers: this.getAttribute('advantages', 'retainers', 'Последователи'),
-								haven: this.getAttribute('advantages', 'haven', 'Убежище'),
-								mask: this.getAttribute('advantages', 'mask', 'Маска'),
-								status: this.getAttribute('advantages', 'status', 'Статус')
-							}
-						},
-						disciplines: {
-							name: 'Дисциплины',
-							data: this.getGroupInitData('disciplines'),
-							elements: {
-								animalism: this.getDiscipline(
-									'animalism',
-									'Анимализм',
-									['gangrel', 'brujah', 'nosferatu'],
-									[],
-									[],
-									'Дисциплина, управляющая животными и связанная с природными инстинктами.',
-									false
-								),
-								auspex: this.getDiscipline(
-									'auspex',
-									'Ауспекс',
-									['toreador', 'brujah', 'ravnos'],
-									[],
-									[],
-									'Прорицание, расширение восприятия: ясновидение, астральные чувства, чтение аур и мыслей.',
-									false
-								),
-								celerity: this.getDiscipline(
-									'celerity',
-									'Стремительность',
-									['brujah', 'gangrel', 'lasombra'],
-									[],
-									[],
-									'Сверхъестественная скорость — ускорение движений и реакции.',
-									false
-								),
-								dominate: this.getDiscipline(
-									'dominate',
-									'Доминирование',
-									['ventrue', 'tremere', 'lasombra'],
-									[],
-									[],
-									'Манипуляция разумом: приказы, обязательства, контроль и внушение.',
-									false
-								),
-								fortitude: this.getDiscipline(
-									'fortitude',
-									'Стойкость',
-									['toreador', 'gangrel', 'ventrue'],
-									[],
-									[],
-									'Устойчивость к урону, выживаемость и стойкость против сверхъестественных эффектов.',
-									false
-								),
-								obfuscate: this.getDiscipline(
-									'obfuscate',
-									'Сокрытие',
-									['nosferatu', 'malkavian', 'tremere'],
-									[],
-									[],
-									'Скрытие присутствия: маскировка, иллюзии, умение оставаться незаметным.',
-									false
-								),
-								potence: this.getDiscipline(
-									'potence',
-									'Могущество',
-									['brujah', 'gangrel', 'followers'],
-									[],
-									[],
-									'Физическая сила сверхчеловеческого уровня — усиление ударов, возможности ломать преграды.',
-									false
-								),
-								presence: this.getDiscipline(
-									'presence',
-									'Присутствие',
-									['toreador', 'ventrue', 'nosferatu'],
-									[],
-									[],
-									'Влияние на эмоции и волю — очарование, вдохновение, страх.',
-									false
-								),
-								protean: this.getDiscipline(
-									'protean',
-									'Превращение',
-									['gangrel', 'brujah', 'lasombra'],
-									['shapechange', 'claws', 'blooddrain'],
-									[],
-									'Дисциплина, позволяющая изменять форму: превращения, животные формы, когти.',
-									false
-								),
-								thaumaturgy: this.getDiscipline(
-									'thaumaturgy',
-									'Тауматургия',
-									['tremere'],
-									['alchemy', 'biothaumaturgy', 'movement_of_the_mind', 'green_path', 'oneiromancy'],
-									[],
-									'Кровная магия Тремеров — протауматургическая система с множеством путей.',
-									true
-								),
-								necromancy: this.getDiscipline(
-									'necromancy',
-									'Некромантия',
-									['giovanni', 'tremere'],
-									['cenotaph', 'bone', 'mortuus', 'ash', 'sepulchre', 'vitreous'],
-									[],
-									'Магия смерти: манипуляция душами, мёртвыми, путями смерти.',
-									true
-								),
-								obtenebration: this.getDiscipline(
-									'obtenebration',
-									'Обтенебрация',
-									['lasombra'],
-									[],
-									[],
-									'Дисциплина Теней — управление тьмой и тенями, создание плотных теневых форм.',
-									false
-								),
-								vicissitude: this.getDiscipline(
-									'vicissitude',
-									'Изменчивость',
-									['giovanni'],
-									[],
-									[],
-									'Изменение плоти и костей — дисциплина, дающая возможность модифицировать тело.',
-									false
-								),
-								dementation: this.getDiscipline(
-									'dementation',
-									'Помешательство',
-									['malkavian'],
-									[],
-									[],
-									'Искажение сознания, провокация безумия, создание иллюзий и фобий.',
-									false
-								),
-								melpominee: this.getDiscipline(
-									'melpominee',
-									'Мельпомения',
-									[],
-									[],
-									[],
-									'Дисциплина, связанная с музыкой, голосом и чарующим эффектом искусства.',
-									false
-								),
-								koldunic_sorcery: this.getDiscipline(
-									'koldunic_sorcery',
-									'Колдовство',
-									['ravnos'],
-									['way_of_wind', 'way_of_water', 'way_of_spirit', 'way_of_earth', 'way_of_fire', 'way_of_sorrow'],
-									[],
-									'Колдовство кельтско-горных традиций; содержит «пути» (ветры, воды, духа, земли, огня и скорби).',
-									true
-								),
-								assamite_sorcery: this.getDiscipline(
-									'assamite_sorcery',
-									'Чародейство Ассамитов',
-									['assamite'],
-									['hunters_winds', 'awakening_of_the_steel', 'whispers_of_the_heavens'],
-									[],
-									'Ассамитская традиция магии — набор путей и техник, основанных на боевых и мистических практиках.',
-									true
-								),
-								setite_sorcery: this.getDiscipline(
-									'setite_sorcery',
-									'Чародейство Сеттитов',
-									['setite'],
-									['hand_of_god', 'union_with_set', 'serpent_temptation', 'dried_nile_path', 'duat_path', 'ushebti'],
-									[],
-									'Сетитовская магия, связанная с культом Сета; содержит несколько путей/школ.',
-									true
-								),
-								spiritus: this.getDiscipline(
-									'spiritus',
-									'Шаманство',
-									[],
-									[],
-									[],
-									'Дисциплина, связанная с духами и шаманскими практиками; взаимодействие с духами, призыв и контроль.',
-									false
-								)
+				}),
+				advantages: SectionFactory.initSection('advantages', 'Преимущества', {
+					additions: {
+						name: 'Дополнения',
+						data: this.getGroupInitData('advantages'),
+						elements: {
+							allies: this.getAttribute('advantages', 'allies', 'Союзники'),
+							contacts: this.getAttribute('advantages', 'contacts', 'Связи'),
+							fame: this.getAttribute('advantages', 'fame', 'Слава'),
+							herd: this.getAttribute('advantages', 'herd', 'Стадо'),
+							influence: this.getAttribute('advantages', 'influence', 'Влияние'),
+							resources: this.getAttribute('advantages', 'resources', 'Ресурсы'),
+							retainers: this.getAttribute('advantages', 'retainers', 'Последователи'),
+							haven: this.getAttribute('advantages', 'haven', 'Убежище'),
+							mask: this.getAttribute('advantages', 'mask', 'Маска'),
+							status: this.getAttribute('advantages', 'status', 'Статус')
+						}
+					},
+					disciplines: {
+						name: 'Дисциплины',
+						data: this.getGroupInitData('disciplines'),
+						elements: {
+							animalism: this.getDiscipline(
+								'animalism',
+								'Анимализм',
+								['gangrel', 'brujah', 'nosferatu'],
+								[],
+								[],
+								'Дисциплина, управляющая животными и связанная с природными инстинктами.',
+								false
+							),
+							auspex: this.getDiscipline(
+								'auspex',
+								'Ауспекс',
+								['toreador', 'brujah', 'ravnos'],
+								[],
+								[],
+								'Прорицание, расширение восприятия: ясновидение, астральные чувства, чтение аур и мыслей.',
+								false
+							),
+							celerity: this.getDiscipline(
+								'celerity',
+								'Стремительность',
+								['brujah', 'gangrel', 'lasombra'],
+								[],
+								[],
+								'Сверхъестественная скорость — ускорение движений и реакции.',
+								false
+							),
+							dominate: this.getDiscipline(
+								'dominate',
+								'Доминирование',
+								['ventrue', 'tremere', 'lasombra'],
+								[],
+								[],
+								'Манипуляция разумом: приказы, обязательства, контроль и внушение.',
+								false
+							),
+							fortitude: this.getDiscipline(
+								'fortitude',
+								'Стойкость',
+								['toreador', 'gangrel', 'ventrue'],
+								[],
+								[],
+								'Устойчивость к урону, выживаемость и стойкость против сверхъестественных эффектов.',
+								false
+							),
+							obfuscate: this.getDiscipline(
+								'obfuscate',
+								'Сокрытие',
+								['nosferatu', 'malkavian', 'tremere'],
+								[],
+								[],
+								'Скрытие присутствия: маскировка, иллюзии, умение оставаться незаметным.',
+								false
+							),
+							potence: this.getDiscipline(
+								'potence',
+								'Могущество',
+								['brujah', 'gangrel', 'followers'],
+								[],
+								[],
+								'Физическая сила сверхчеловеческого уровня — усиление ударов, возможности ломать преграды.',
+								false
+							),
+							presence: this.getDiscipline(
+								'presence',
+								'Присутствие',
+								['toreador', 'ventrue', 'nosferatu'],
+								[],
+								[],
+								'Влияние на эмоции и волю — очарование, вдохновение, страх.',
+								false
+							),
+							protean: this.getDiscipline(
+								'protean',
+								'Превращение',
+								['gangrel', 'brujah', 'lasombra'],
+								['shapechange', 'claws', 'blooddrain'],
+								[],
+								'Дисциплина, позволяющая изменять форму: превращения, животные формы, когти.',
+								false
+							),
+							thaumaturgy: this.getDiscipline(
+								'thaumaturgy',
+								'Тауматургия',
+								['tremere'],
+								['alchemy', 'biothaumaturgy', 'movement_of_the_mind', 'green_path', 'oneiromancy'],
+								[],
+								'Кровная магия Тремеров — протауматургическая система с множеством путей.',
+								true
+							),
+							necromancy: this.getDiscipline(
+								'necromancy',
+								'Некромантия',
+								['giovanni', 'tremere'],
+								['cenotaph', 'bone', 'mortuus', 'ash', 'sepulchre', 'vitreous'],
+								[],
+								'Магия смерти: манипуляция душами, мёртвыми, путями смерти.',
+								true
+							),
+							obtenebration: this.getDiscipline(
+								'obtenebration',
+								'Обтенебрация',
+								['lasombra'],
+								[],
+								[],
+								'Дисциплина Теней — управление тьмой и тенями, создание плотных теневых форм.',
+								false
+							),
+							vicissitude: this.getDiscipline(
+								'vicissitude',
+								'Изменчивость',
+								['giovanni'],
+								[],
+								[],
+								'Изменение плоти и костей — дисциплина, дающая возможность модифицировать тело.',
+								false
+							),
+							dementation: this.getDiscipline(
+								'dementation',
+								'Помешательство',
+								['malkavian'],
+								[],
+								[],
+								'Искажение сознания, провокация безумия, создание иллюзий и фобий.',
+								false
+							),
+							melpominee: this.getDiscipline(
+								'melpominee',
+								'Мельпомения',
+								[],
+								[],
+								[],
+								'Дисциплина, связанная с музыкой, голосом и чарующим эффектом искусства.',
+								false
+							),
+							koldunic_sorcery: this.getDiscipline(
+								'koldunic_sorcery',
+								'Колдовство',
+								['ravnos'],
+								['way_of_wind', 'way_of_water', 'way_of_spirit', 'way_of_earth', 'way_of_fire', 'way_of_sorrow'],
+								[],
+								'Колдовство кельтско-горных традиций; содержит «пути» (ветры, воды, духа, земли, огня и скорби).',
+								true
+							),
+							assamite_sorcery: this.getDiscipline(
+								'assamite_sorcery',
+								'Чародейство Ассамитов',
+								['assamite'],
+								['hunters_winds', 'awakening_of_the_steel', 'whispers_of_the_heavens'],
+								[],
+								'Ассамитская традиция магии — набор путей и техник, основанных на боевых и мистических практиках.',
+								true
+							),
+							setite_sorcery: this.getDiscipline(
+								'setite_sorcery',
+								'Чародейство Сеттитов',
+								['setite'],
+								['hand_of_god', 'union_with_set', 'serpent_temptation', 'dried_nile_path', 'duat_path', 'ushebti'],
+								[],
+								'Сетитовская магия, связанная с культом Сета; содержит несколько путей/школ.',
+								true
+							),
+							spiritus: this.getDiscipline(
+								'spiritus',
+								'Шаманство',
+								[],
+								[],
+								[],
+								'Дисциплина, связанная с духами и шаманскими практиками; взаимодействие с духами, призыв и контроль.',
+								false
+							)
 
-								/**
-								animalism: this.getAttribute('disciplines', 'animalism', 'Анимализм'),
-								auspex: this.getAttribute('disciplines', 'auspex', 'Ауспекс'),
-								celerity: this.getAttribute('disciplines', 'celerity', 'Стремительность'),
-								dominate: this.getAttribute('disciplines', 'dominate', 'Доминирование'),
-								fortitude: this.getAttribute('disciplines', 'fortitude', 'Стойкость'),
-								obfuscate: this.getAttribute('disciplines', 'obfuscate', 'Сокрытие'),
-								necromancy: this.getAttribute('disciplines', 'necromancy', 'Некромантия'),
-								potence: this.getAttribute('disciplines', 'potence', 'Могущество'),
-								presence: this.getAttribute('disciplines', 'presence', 'Присутствие'),
-								protean: this.getAttribute('disciplines', 'protean', 'Протея'),
-								thaumaturgy: this.getAttribute('disciplines', 'thaumaturgy', 'Тауматургия'),
-								chimerstry: this.getAttribute('disciplines', 'chimerstry', 'Химерия'),
-								dementation: this.getAttribute('disciplines', 'dementation', 'Помешательство'),
-								obtenebration: this.getAttribute('disciplines', 'obtenebration', 'Обтенебрация'),
-								quietus: this.getAttribute('disciplines', 'quietus', 'Квиетус'),
-								serpentis: this.getAttribute('disciplines', 'serpentis', 'Серпентис'),
-								temporis: this.getAttribute('disciplines', 'temporis', 'Темпорис'),
-								visceratika: this.getAttribute('disciplines', 'visceratika', 'Висцератика'),
-								melpominee: this.getAttribute('disciplines', 'melpominee', 'Мельпоминея'),
-								mytherceria: this.getAttribute('disciplines', 'mytherceria', 'Митерсерия'),
-								valeren: this.getAttribute('disciplines', 'valeren', 'Валерен'),
-								obeah: this.getAttribute('disciplines', 'obeah', 'Обея')
-								 **/
-							}
-						},
-						virtues: {
-							name: 'Добродетели',
-							data: this.getGroupInitData('advantages'),
-							elements: {
-								consciousness: this.getAttribute('advantages', 'consciousness', 'Сознательность'),
-								conviction: this.getAttribute('advantages', 'conviction', 'Убеждённость'),
-								self_control: this.getAttribute('advantages', 'self_control', 'Самоконтроль'),
-								instincts: this.getAttribute('advantages', 'instincts', 'Инстинкты'),
-								courage: this.getAttribute('advantages', 'courage', 'Смелость'),
-							}
+							/**
+							 animalism: this.getAttribute('disciplines', 'animalism', 'Анимализм'),
+							 auspex: this.getAttribute('disciplines', 'auspex', 'Ауспекс'),
+							 celerity: this.getAttribute('disciplines', 'celerity', 'Стремительность'),
+							 dominate: this.getAttribute('disciplines', 'dominate', 'Доминирование'),
+							 fortitude: this.getAttribute('disciplines', 'fortitude', 'Стойкость'),
+							 obfuscate: this.getAttribute('disciplines', 'obfuscate', 'Сокрытие'),
+							 necromancy: this.getAttribute('disciplines', 'necromancy', 'Некромантия'),
+							 potence: this.getAttribute('disciplines', 'potence', 'Могущество'),
+							 presence: this.getAttribute('disciplines', 'presence', 'Присутствие'),
+							 protean: this.getAttribute('disciplines', 'protean', 'Протея'),
+							 thaumaturgy: this.getAttribute('disciplines', 'thaumaturgy', 'Тауматургия'),
+							 chimerstry: this.getAttribute('disciplines', 'chimerstry', 'Химерия'),
+							 dementation: this.getAttribute('disciplines', 'dementation', 'Помешательство'),
+							 obtenebration: this.getAttribute('disciplines', 'obtenebration', 'Обтенебрация'),
+							 quietus: this.getAttribute('disciplines', 'quietus', 'Квиетус'),
+							 serpentis: this.getAttribute('disciplines', 'serpentis', 'Серпентис'),
+							 temporis: this.getAttribute('disciplines', 'temporis', 'Темпорис'),
+							 visceratika: this.getAttribute('disciplines', 'visceratika', 'Висцератика'),
+							 melpominee: this.getAttribute('disciplines', 'melpominee', 'Мельпоминея'),
+							 mytherceria: this.getAttribute('disciplines', 'mytherceria', 'Митерсерия'),
+							 valeren: this.getAttribute('disciplines', 'valeren', 'Валерен'),
+							 obeah: this.getAttribute('disciplines', 'obeah', 'Обея')
+							 **/
+						}
+					},
+					virtues: {
+						name: 'Добродетели',
+						data: this.getGroupInitData('advantages'),
+						elements: {
+							consciousness: this.getAttribute('advantages', 'consciousness', 'Сознательность'),
+							conviction: this.getAttribute('advantages', 'conviction', 'Убеждённость'),
+							self_control: this.getAttribute('advantages', 'self_control', 'Самоконтроль'),
+							instincts: this.getAttribute('advantages', 'instincts', 'Инстинкты'),
+							courage: this.getAttribute('advantages', 'courage', 'Смелость'),
 						}
 					}
-				},
-				other: {
-					groups: {
-						aspects: {
-							name: 'Преимущества и недостатки',
-							elements: this.getAspectInitLis()
-						},
-						humanity_willpower_blood: {
-							elements: {
-								humanity: {
-									name: 'Человечность / Путь',
-									value: 'humanity',
-									type: this.getType('text')
-								},
-								willpower: {
-									name: 'Сила Воли',
-									value: {
-										permanent: 7,
-										current: 6
-									},
-									type: this.getType('number')
-								},
-								blood: {
-									name: 'Запас крови',
-									value: {
-										current: 5
-									},
-									type: this.getType('number')
-								}
-							}
-						},
-						health: {
-							name: 'Здоровье',
-							data: {
-								damage_type: {
-									none: {
-										name: 'Цел'
-									},
-									bashing: {
-										name: 'Ударные'
-									},
-									lethal: {
-										name: 'Летальные'
-									},
-									aggravated: {
-										name: 'Непоглощаемые (аграва)'
-									}
-								},
+				}),
+				other: SectionFactory.initSection('other', '', {
+					aspects: {
+						name: 'Преимущества и недостатки',
+						elements: this.getAspectInitLis()
+					},
+					humanity_willpower_blood: {
+						elements: {
+							humanity: {
+								name: 'Человечность / Путь',
+								value: 'humanity',
+								type: this.getType('text')
 							},
-							elements: this.initHealthTrack()
+							willpower: {
+								name: 'Сила Воли',
+								value: {
+									permanent: 7,
+									current: 6
+								},
+								type: this.getType('number')
+							},
+							blood: {
+								name: 'Запас крови',
+								value: {
+									current: 5
+								},
+								type: this.getType('number')
+							}
 						}
+					},
+					health: {
+						name: 'Здоровье',
+						data: {
+							damage_type: {
+								none: {
+									name: 'Цел'
+								},
+								bashing: {
+									name: 'Ударные'
+								},
+								lethal: {
+									name: 'Летальные'
+								},
+								aggravated: {
+									name: 'Непоглощаемые (аграва)'
+								}
+							},
+						},
+						elements: this.initHealthTrack()
 					}
-				}
+				})
 			}
 		})
 	}
