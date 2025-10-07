@@ -218,85 +218,8 @@ class App extends Component {
 		Alpine.store('state', {
 			sections: {
 				head: SectionFactory.get('head'),
-				attributes: SectionFactory.initSection('attributes', 'Атрибуты', {
-					physical: {
-						name: 'Физические',
-						data: this.getGroupInitData('attributes'),
-						elements: {
-							strength: this.getAttribute('attributes', 'strength', 'Сила'),
-							agility: this.getAttribute('attributes', 'agility', 'Ловкость'),
-							stamina: this.getAttribute('attributes', 'stamina', 'Выносливость'),
-						}
-					},
-					social: {
-						name: 'Социальные',
-						data: this.getGroupInitData('attributes'),
-						elements: {
-							charm: this.getAttribute('attributes', 'charm', 'Обаяние'),
-							manipulation: this.getAttribute('attributes', 'manipulation', 'Манипуляция'),
-							appearance: this.getAttribute('attributes', 'appearance', 'Внешность'),
-						}
-					},
-					mental: {
-						name: 'Ментальные',
-						data: this.getGroupInitData('attributes'),
-						elements: {
-							perception: this.getAttribute('attributes', 'perception', 'Восприятие'),
-							intelligence: this.getAttribute('attributes', 'intelligence', 'Интеллект'),
-							savvy: this.getAttribute('attributes', 'savvy', 'Смекалка'),
-						}
-					}
-				}),
-				skills: SectionFactory.initSection('skills', 'Способности', {
-					talents: {
-						name: 'Таланты',
-						data: this.getGroupInitData('skills'),
-						elements: {
-							athletics: this.getAttribute('skills', 'athletics', 'Атлетика'),
-							attention: this.getAttribute('skills', 'attention', 'Внимательность'),
-							intimidation: this.getAttribute('skills', 'intimidation', 'Запугивание'),
-							streetwise: this.getAttribute('skills', 'streetwise', 'Знание Улиц'),
-							leadership: this.getAttribute('skills', 'leadership', 'Лидерство'),
-							melee: this.getAttribute('skills', 'melee', 'Рукопашный Бой'),
-							evasion: this.getAttribute('skills', 'evasion', 'Уклонение'),
-							cunning: this.getAttribute('skills', 'cunning', 'Хитрость'),
-							expression: this.getAttribute('skills', 'expression', 'Экспрессия'),
-							empathy: this.getAttribute('skills', 'empathy', 'Эмпатия'),
-						}
-					},
-					capabilities: {
-						name: 'Навыки',
-						data: this.getGroupInitData('skills'),
-						elements: {
-							security: this.getAttribute('skills', 'security', 'Безопасность'),
-							driving: this.getAttribute('skills', 'driving', 'Вождение'),
-							survival: this.getAttribute('skills', 'survival', 'Выживание'),
-							execution: this.getAttribute('skills', 'execution', 'Исполнение'),
-							knowledge_animals: this.getAttribute('skills', 'knowledge_animals', 'Знание Животных'),
-							crafts: this.getAttribute('skills', 'crafts', 'Ремесла'),
-							stealth: this.getAttribute('skills', 'stealth', 'Скрытность'),
-							shooting: this.getAttribute('skills', 'shooting', 'Стрельба'),
-							fencing: this.getAttribute('skills', 'fencing', 'Фехтование'),
-							etiquette: this.getAttribute('skills', 'etiquette', 'Этикет'),
-						}
-					},
-					knowledge: {
-						name: 'Познания',
-						data: this.getGroupInitData('skills'),
-						elements: {
-							academics: this.getAttribute('skills', 'academics', 'Академические'),
-							laws: this.getAttribute('skills', 'laws', 'Законы'),
-							computers: this.getAttribute('skills', 'computers', 'Компьютеры'),
-							linguistics: this.getAttribute('skills', 'linguistics', 'Лингвистика'),
-							medicine: this.getAttribute('skills', 'medicine', 'Медицина'),
-							sciences: this.getAttribute('skills', 'sciences', 'Научные'),
-							occult: this.getAttribute('skills', 'occult', 'Оккультизм'),
-							politics: this.getAttribute('skills', 'politics', 'Политикa'),
-							investigations: this.getAttribute('skills', 'investigations', 'Расследования'),
-							finance: this.getAttribute('skills', 'finance', 'Финансы'),
-						}
-					}
-				}),
+				attributes: SectionFactory.get('attributes'),
+				skills: SectionFactory.get('skills'),
 				advantages: SectionFactory.initSection('advantages', 'Преимущества', {
 					additions: {
 						name: 'Дополнения',
@@ -790,6 +713,8 @@ class App extends Component {
 class SectionFactory {
 	static sectionList = {
 		head: () => new HeadSection(),
+		attributes: () => (new AttributesSection()).setGroups(),
+		skills: () => (new SkillsSection()).setGroups(),
 	}
 
 	static get(code) {
@@ -812,6 +737,10 @@ class Section extends Component {
 		this.code = code
 		this.name = name
 		this.groups = groups
+	}
+
+	initGroupData() {
+		return {}
 	}
 }
 
@@ -840,6 +769,133 @@ class HeadSection extends Section {
 				}
 			}
 		});
+	}
+}
+
+class AttributesAndSkillsSection extends Section {
+	orderNumber = 1
+	initGroupData() {
+		return {
+			isNeed: true,
+			points: {
+				current: 0,
+				max: this.maxPoints[this.orderNumber]
+			},
+			orderNumber: this.orderNumber++
+		}
+	}
+}
+
+class AttributesSection extends AttributesAndSkillsSection {
+	maxPoints = {
+		0: 0,
+		1: 7,
+		2: 5,
+		3: 3
+	}
+
+	constructor() {
+		super('attributes', 'Атрибуты', {});
+	}
+
+	setGroups() {
+		this.groups = {
+			physical: {
+				name: 'Физические',
+				data: this.initGroupData(),
+				elements: {
+					strength: new AttributeElement('strength', 'Сила'),
+					agility: new AttributeElement('agility', 'Ловкость'),
+					stamina: new AttributeElement('stamina', 'Выносливость'),
+				}
+			},
+			social: {
+				name: 'Социальные',
+				data: this.initGroupData(),
+				elements: {
+					charm: new AttributeElement('charm', 'Обаяние'),
+					manipulation: new AttributeElement('manipulation', 'Манипуляция'),
+					appearance: new AttributeElement('appearance', 'Внешность'),
+				}
+			},
+			mental: {
+				name: 'Ментальные',
+				data: this.initGroupData(),
+				elements: {
+					perception: new AttributeElement('perception', 'Восприятие'),
+					intelligence: new AttributeElement('intelligence', 'Интеллект'),
+					savvy: new AttributeElement('savvy', 'Смекалка'),
+				}
+			}
+		}
+		return this
+	}
+}
+
+class SkillsSection extends AttributesAndSkillsSection {
+	maxPoints = {
+		0: 0,
+		1: 13,
+		2: 9,
+		3: 5
+	}
+
+	constructor() {
+		super('skills', 'Способности', {});
+	}
+
+	setGroups() {
+		this.groups = {
+			talents: {
+				name: 'Таланты',
+				data: this.initGroupData(),
+				elements: {
+					athletics: new SkillElement('athletics', 'Атлетика'),
+					attention: new SkillElement('attention', 'Внимательность'),
+					intimidation: new SkillElement('intimidation', 'Запугивание'),
+					streetwise: new SkillElement('streetwise', 'Знание Улиц'),
+					leadership: new SkillElement('leadership', 'Лидерство'),
+					melee: new SkillElement('melee', 'Рукопашный Бой'),
+					evasion: new SkillElement('evasion', 'Уклонение'),
+					cunning: new SkillElement('cunning', 'Хитрость'),
+					expression: new SkillElement('expression', 'Экспрессия'),
+					empathy: new SkillElement('empathy', 'Эмпатия'),
+				}
+			},
+			capabilities: {
+				name: 'Навыки',
+				data: this.initGroupData(),
+				elements: {
+					security: new SkillElement('security', 'Безопасность'),
+					driving: new SkillElement('driving', 'Вождение'),
+					survival: new SkillElement('survival', 'Выживание'),
+					execution: new SkillElement('execution', 'Исполнение'),
+					knowledge_animals: new SkillElement('knowledge_animals', 'Знание Животных'),
+					crafts: new SkillElement('crafts', 'Ремесла'),
+					stealth: new SkillElement('stealth', 'Скрытность'),
+					shooting: new SkillElement('shooting', 'Стрельба'),
+					fencing: new SkillElement('fencing', 'Фехтование'),
+					etiquette: new SkillElement('etiquette', 'Этикет'),
+				}
+			},
+			knowledge: {
+				name: 'Познания',
+				data: this.initGroupData(),
+				elements: {
+					academics: new SkillElement('academics', 'Академические'),
+					laws: new SkillElement('laws', 'Законы'),
+					computers: new SkillElement('computers', 'Компьютеры'),
+					linguistics: new SkillElement('linguistics', 'Лингвистика'),
+					medicine: new SkillElement('medicine', 'Медицина'),
+					sciences: new SkillElement('sciences', 'Научные'),
+					occult: new SkillElement('occult', 'Оккультизм'),
+					politics: new SkillElement('politics', 'Политикa'),
+					investigations: new SkillElement('investigations', 'Расследования'),
+					finance: new SkillElement('finance', 'Финансы'),
+				}
+			}
+		}
+		return this
 	}
 }
 
@@ -910,6 +966,21 @@ class AttributeElement extends AttributeOrSkillElement {
 			}
 		);
 		super.minPermanentValue = 1
+	}
+}
+
+class SkillElement extends AttributeOrSkillElement {
+
+	constructor(code, name) {
+		super(
+			code,
+			name,
+			{
+				temporary: 0,
+				permanent: 0
+			}
+		);
+		super.minPermanentValue = 0
 	}
 }
 
