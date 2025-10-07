@@ -828,8 +828,34 @@ class Tools {
 	}
 }
 
-class Points {
-	static getRawHtml() {
+//region Типы элементов
+
+class TypeFactory {
+	static get(typeCode) {
+		if (typeCode === 'points') {
+			return new Points();
+		}
+		return new Type(typeCode)
+	}
+}
+
+class Type {
+	typeCode
+	constructor(typeCode) {
+		this.typeCode = typeCode
+	}
+
+	getRawHtml() {
+		throw new Error('Not implement!')
+	}
+}
+
+class Points extends Type {
+
+	constructor() {
+		super('points');
+	}
+	getRawHtml() {
 		return `
 			<span x-text="element.name"></span>
 			<span>: </span>
@@ -846,3 +872,21 @@ class Points {
 			`;
 	}
 }
+
+class Text extends Type {
+	constructor() {
+		super('text');
+	}
+
+	getRawHtml() {
+		return `
+		<label>
+			<span x-text="element.name"></span>
+			<span>: </span>
+			<input type="text" x-model="element.value" style="width: 100px">
+		</label>
+		`
+	}
+}
+
+//endregion
