@@ -1002,4 +1002,20 @@ class HealthPoint extends Type {
 	}
 }
 
+class Weakness extends Type {
+	constructor() {
+		super('weakness');
+	}
+
+	getRawHtml() {
+		return `
+		<label>
+			<span x-text="element.name"></span>
+			<span>: </span>
+			<input type="text" x-model="element.value" style="width: 100px">
+		</label>
+		`
+	}
+}
+
 //endregion
