@@ -168,29 +168,7 @@ class App extends Component {
 	initStore() {
 		Alpine.store('state', {
 			sections: {
-				head: SectionFactory.initSection('head', '',	{
-						game: {
-							elements: {
-								name: this.getHeadInitElement('name', 'Имя'),
-								player: this.getHeadInitElement('player', 'Игрок'),
-								chronicle: this.getHeadInitElement('chronicle', 'Хроника')
-							}
-						},
-						person: {
-							elements: {
-								nature: this.getHeadInitElement('nature', 'Натура'),
-								mask: this.getHeadInitElement('mask', 'Маска'),
-								clan: this.getHeadInitElement('clan', 'Клан')
-							}
-						},
-						vampire: {
-							elements: {
-								generation: this.getHeadInitElement('generation', 'Поколение'),
-								shelter: this.getHeadInitElement('shelter', 'Убежище'),
-								concept: this.getHeadInitElement('concept', 'Концепт')
-							}
-						}
-					}),
+				head: SectionFactory.get('head'),
 				attributes: SectionFactory.initSection('attributes', 'Атрибуты', {
 					physical: {
 						name: 'Физические',
