@@ -868,6 +868,15 @@ class HeadElement extends Element {
 		const typeCode = isGeneration ? 'number' : (isClan ? 'clan' : 'text')
 		const value = isGeneration ? 13 : (isClan ? 'none' : '')
 		super(code, name, value, TypeFactory.get(typeCode));
+		if (isClan) {
+			this.addToBindList('x-effect', () => {
+				if (this.value === 'nosferatu') {
+					this.send('isNosferatu', {
+						isNosferatu: true
+					})
+				}
+			})
+		}
 	}
 }
 
