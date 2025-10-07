@@ -489,7 +489,7 @@ class App extends Component {
 							humanity: {
 								name: 'Человечность / Путь',
 								value: 'humanity',
-								type: this.getType('text')
+								type: TypeFactory.get('text')
 							},
 							willpower: {
 								name: 'Сила Воли',
@@ -497,14 +497,14 @@ class App extends Component {
 									permanent: 7,
 									current: 6
 								},
-								type: this.getType('number')
+								type: TypeFactory.get('number')
 							},
 							blood: {
 								name: 'Запас крови',
 								value: {
 									current: 5
 								},
-								type: this.getType('number')
+								type: TypeFactory.get('number')
 							}
 						}
 					},
@@ -628,7 +628,7 @@ class App extends Component {
 				temporary: section === 'attributes' ? 1 : 0
 			},
 			maxLevel: 5,
-			type: this.getType(type)
+			type: TypeFactory.get(type)
 		}
 	}
 
@@ -655,7 +655,7 @@ class App extends Component {
 			name: name,
 			value: {permanent: 0, temporary: 0},
 			maxLevel: maxLevel,
-			type: this.getType('discipline'),
+			type: TypeFactory.get('discipline'),
 			clans: clans,
 			paths: pathsObj,
 			variants: variantsObj,
@@ -691,7 +691,7 @@ class App extends Component {
 					effect: 0,
 					is_good: false
 				},
-				type: this.getType('text')
+				type: TypeFactory.get('text')
 			}
 		}
 		return list
@@ -715,7 +715,7 @@ class App extends Component {
 		list['weakness'] = {
 			name: 'Слабость',
 			value: '',
-			type: this.getType('weakness')
+			type: TypeFactory.get('weakness')
 		}
 
 		return list
@@ -729,7 +729,7 @@ class App extends Component {
 				damage_type
 			},
 			fine: fine,
-			type: this.getType('health_point')
+			type: TypeFactory.get('health_point')
 		}
 	}
 
