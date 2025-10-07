@@ -799,6 +799,8 @@ class App extends Component {
 	}
 }
 
+//region Секции
+
 class SectionFactory {
 	static initSection(code, name, groups) {
 		return new Section(code, name, groups)
@@ -817,6 +819,63 @@ class Section {
 		this.groups = groups
 	}
 }
+
+class HeadSection extends Section {
+	constructor() {
+		super('head', '', {
+			game: {
+				elements: {
+					name: new HeadElement('name', 'Имя'),
+					player: new HeadElement('player', 'Игрок'),
+					chronicle: new HeadElement('chronicle', 'Хроника')
+				}
+			},
+			person: {
+				elements: {
+					nature: new HeadElement('nature', 'Натура'),
+					mask: new HeadElement('mask', 'Маска'),
+					clan: new HeadElement('clan', 'Клан')
+				}
+			},
+			vampire: {
+				elements: {
+					generation: new HeadElement('generation', 'Поколение'),
+					shelter: new HeadElement('shelter', 'Убежище'),
+					concept: new HeadElement('concept', 'Концепт')
+				}
+			}
+		});
+	}
+}
+
+//endregion
+
+//region Классы элементов
+
+class Element {
+	code
+	name
+	value
+	type
+	constructor(code, name, value, type) {
+		this.code = code
+		this.name = name
+		this.value = value
+		this.type = type
+	}
+}
+
+class HeadElement extends Element {
+	constructor(code, name) {
+		const isGeneration = code === 'generation'
+		const isClan = code === 'clan'
+		const typeCode = isGeneration ? 'number' : (isClan ? 'clan' : 'text')
+		const value = isGeneration ? 13 : (isClan ? 'none' : '')
+		super(code, name, value, TypeFactory.get(typeCode));
+	}
+}
+
+//endregion
 
 class Tools {
 	static encodeBase64(str) {
