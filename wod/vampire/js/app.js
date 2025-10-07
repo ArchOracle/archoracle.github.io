@@ -745,36 +745,6 @@ class App extends Component {
 		}
 	}
 
-	getType(type = 'number') {
-		if (type === 'health_point') {
-			type = "number"
-		}
-		if (type === 'weakness') {
-			type = "text"
-		}
-		if (type === 'clan') {
-			return  {
-				typeCode: type
-			}
-		}
-		if (type === 'points') {
-			return {
-				typeCode: type,
-				maxLength: 5
-			}
-		}
-		if (type === 'discipline') {
-			return {
-				typeCode: type
-			}
-		}
-		if (type === 'text' || type === 'number') {
-			return {
-				typeCode: type
-			}
-		}
-		throw new Error('Not Implemented!')
-	}
 }
 
 //region Секции
