@@ -986,4 +986,20 @@ class Clan extends Type {
 	}
 }
 
+class HealthPoint extends Type {
+	constructor() {
+		super('health_point');
+	}
+
+	getRawHtml() {
+		return `
+		<label>
+			<span x-text="element.name"></span>
+			<span>: </span>
+			<input type="number" x-model="element.value" style="width: 30px">
+		</label>
+		`
+	}
+}
+
 //endregion
