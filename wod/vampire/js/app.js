@@ -847,12 +847,13 @@ class HeadSection extends Section {
 
 //region Классы элементов
 
-class Element {
+class Element extends Component {
 	code
 	name
 	value
 	type
 	constructor(code, name, value, type) {
+		super(code)
 		this.code = code
 		this.name = name
 		this.value = value
