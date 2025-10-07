@@ -964,4 +964,26 @@ class NumberType extends Type {
 	}
 }
 
+class Clan extends Type {
+	constructor() {
+		super('clan');
+	}
+
+	getRawHtml() {
+		return `
+		<span x-text="element.name"></span>
+		<span>: </span>
+		<label>
+			<select x-model="element.value">
+				<template x-for="(clan, clanCode) in App.get().getClanList()"
+						  :key="clanCode">
+					<option :value="clanCode" x-text="clan.name"
+							:title="clan.description"></option>
+				</template>
+			</select>
+		</label>
+		`
+	}
+}
+
 //endregion
