@@ -861,7 +861,7 @@ class Points extends Type {
 		return `
 			<span x-text="element.name"></span>
 			<span>: </span>
-			<div class="points" style="display: inline-block" x-init="console.log(element)">
+			<div class="points" style="display: inline-block">
 				<template x-for="i in element.maxLevel" :key="i">
 					<input
 							type="checkbox"
