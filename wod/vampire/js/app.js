@@ -974,6 +974,9 @@ class AttributeElement extends AttributeOrSkillElement {
 			}
 		);
 		super.minPermanentValue = 1
+		if (code === 'appearance') {
+			this.addToBindList('@isNosferatu', (event) => {this.maxPermanentValue = 0})
+		}
 	}
 }
 
