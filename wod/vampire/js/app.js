@@ -880,6 +880,39 @@ class HeadElement extends Element {
 	}
 }
 
+class AttributeOrSkillElement extends Element {
+	minPermanentValue = 0
+	maxPermanentValue = 5
+
+	constructor(code, name, value) {
+		super(code, name, value, TypeFactory.get('points'));
+	}
+
+
+	get minLevel() {
+		return !!this.minPermanentValue ? this.minPermanentValue : 0
+	}
+
+	get maxLevel() {
+		return !!this.maxPermanentValue ? this.maxPermanentValue : 5
+	}
+}
+
+class AttributeElement extends AttributeOrSkillElement {
+
+	constructor(code, name) {
+		super(
+			code,
+			name,
+			{
+				temporary: 1,
+				permanent: 1
+			}
+		);
+		super.minPermanentValue = 1
+	}
+}
+
 //endregion
 
 class Tools {
