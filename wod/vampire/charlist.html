@@ -55,7 +55,15 @@
                                         </label>
                                         <div title="Вложенные / Максимально доступные">
                                             <span>Вложенные очки: </span>
-                                            <span x-text="group.data.points.current"></span>
+                                            <span
+                                                    x-text="group.data.points.current"
+                                                    x-effect="() => {
+                                                            group.data.points.current = 0;
+                                                            for (let element in group.elements) {
+                                                            group.data.points.current += (group.elements[element].value.permanent-(sectionKey === 'attributes' ? 1 : 0))
+                                                            }
+                                                        }"
+                                            ></span>
                                             <span> / </span>
                                             <span x-text="group.data.points.max"></span>
                                         </div>
