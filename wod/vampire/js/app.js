@@ -79,6 +79,9 @@ class App extends Component {
 		return App.instance
 	}
 
+	/**
+	 * Используется в raw-html, например в Clan (extends Type)
+	 * */
 	getClanList() {
 		return {
 			none: {
