@@ -234,17 +234,13 @@ class App extends Component {
 						status: new AdditionElement('status', 'Статус')
 					}),
 					disciplines: new DisciplinesGroup(),
-					virtues: {
-						name: 'Добродетели',
-						data: this.getGroupInitData('advantages'),
-						elements: {
-							consciousness: this.getAttribute('advantages', 'consciousness', 'Сознательность'),
-							conviction: this.getAttribute('advantages', 'conviction', 'Убеждённость'),
-							self_control: this.getAttribute('advantages', 'self_control', 'Самоконтроль'),
-							instincts: this.getAttribute('advantages', 'instincts', 'Инстинкты'),
-							courage: this.getAttribute('advantages', 'courage', 'Смелость'),
-						}
-					}
+					virtues: new Group('virtues', 'Добродетели', {
+						consciousness: new Element('consciousness', 'Сознательность', {permanent: 1}, TypeFactory.get('points')),
+						conviction: new Element('conviction', 'Убеждённость', {permanent: 0}, TypeFactory.get('points')),
+						self_control: new Element('self_control', 'Самоконтроль', {permanent: 1}, TypeFactory.get('points')),
+						instincts: new Element('instincts', 'Инстинкты', {permanent: 0}, TypeFactory.get('points')),
+						courage: new Element('courage', 'Смелость', {permanent: 1}, TypeFactory.get('points')),
+					})
 				}),
 				other: SectionFactory.initSection('other', '', {
 					aspects: {
