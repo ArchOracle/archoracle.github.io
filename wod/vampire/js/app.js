@@ -901,6 +901,22 @@ class SkillsSection extends AttributesAndSkillsSection {
 
 //endregion
 
+//region Классы групп
+
+class Group extends Component {
+	code
+	name
+	elements
+	constructor(code, name, elements) {
+		super(code);
+		this.code = code
+		this.name = name
+		this.elements = elements
+	}
+}
+
+//endregion
+
 //region Классы элементов
 
 class Element extends Component {
