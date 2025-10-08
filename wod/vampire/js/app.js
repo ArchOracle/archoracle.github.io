@@ -636,19 +636,6 @@ class App extends Component {
 		};
 	}
 
-	isShowDiscipline(code) {
-		return true;// Позже разберусь когда надо скрывать/показывать дисциплины
-		// const discipline = this.getDisciplineByCode(code)
-		// return discipline.clans.includes(this.getCurrentClan().value) || discipline.clans.length === 0
-	}
-
-	getDisciplineByCode(code) {
-		return this.getState().sections.advantages.groups.disciplines.elements[code]
-	}
-
-	getCurrentClan() {
-		return this.getState().sections.head.groups.person.elements.clan
-	}
 
 	getAspectInitLis() {
 		let list = {}
@@ -664,9 +651,6 @@ class App extends Component {
 		}
 		return list
 	}
-
-
-
 
 	initHealthTrack() {
 		const list = {}
@@ -688,8 +672,6 @@ class App extends Component {
 
 		return list
 	}
-
-
 	createHealthPoint(id, name, fine = 0, damage_type = 'none') {
 		return {
 			name: name,
@@ -700,8 +682,6 @@ class App extends Component {
 			type: TypeFactory.get('health_point')
 		}
 	}
-
-
 }
 
 //region Секции
