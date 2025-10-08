@@ -915,6 +915,10 @@ class Element extends Component {
 	get maxLevel() {
 		return 5
 	}
+
+	isShow() {
+		return true
+	}
 }
 
 class HeadElement extends Element {
