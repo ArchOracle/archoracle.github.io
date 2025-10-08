@@ -1005,6 +1005,56 @@ class AdditionElement extends Element {
 	}
 }
 
+class DisciplineElement extends Element {
+	clans
+	paths
+	variants
+	description
+	ritualSupport
+	metadata
+	isUnique
+
+	#isShowFlag = true
+
+	constructor(
+		code,
+		name,
+		clans = [],     // array of strings: кланы, для которых дисциплина клановая
+		paths = [],     // array of strings: пути / ветви дисциплины
+		variants = [],  // array of strings: альтернативные версии / специализации
+		description = '', // string: описание дисциплины
+		ritualSupport = false, // boolean: поддержка ритуалов
+		isUnique = false
+	) {
+		super(code, name, {permanent: 0, temporary: 0}, TypeFactory.get('discipline'));
+		this.clans = clans
+		this.paths = paths
+		this.variants = variants
+		this.description = description
+		this.ritualSupport = ritualSupport
+		this.isUnique = isUnique
+
+		this.metadata = {
+			isClanDiscipline: clans.length > 0,
+			source: 'wod.su',
+			description: description,
+			ritualSupport: ritualSupport
+		}
+	}
+
+	get maxLevel() {
+		return 5
+	}
+
+	set show(isShowFlag) {
+		this.#isShowFlag = !!isShowFlag
+	}
+
+	isShow() {
+		return this.#isShowFlag
+	}
+}
+
 //endregion
 
 class Tools {
