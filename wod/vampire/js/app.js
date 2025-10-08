@@ -307,32 +307,7 @@ class App extends Component {
 		Alpine.store('state', state)
 	}
 
-	getElementValue(section, group, element) {
-		return this.getState().sections[section].groups[group].elements[element].value
-	}
 
-	setElementValue(section, group, element, value) {
-		this.getState().sections[section].groups[group].elements[element].value = value
-	}
-
-	getGroupInitData(section) {
-		if (section === 'skills' && this.orderNumber === 4) {
-			this.orderNumber = 1
-		}
-		if (section !== 'attributes' && section !== 'skills') {
-			return {
-				isNeed: false
-			}
-		}
-		return {
-			isNeed: section === 'attributes' || section === 'skills',
-			points: {
-				current: 0,
-				max: this.maxPoints[section][this.orderNumber]
-			},
-			orderNumber: this.orderNumber++
-		}
-	}
 
 	handleSelectImportance(sectionKey, groupKey, value) {
 		// debugger;
@@ -350,33 +325,6 @@ class App extends Component {
 
 	}
 
-	handleIncrementTraitValue(sectionKey, groupKey, elementKey, newValue, oldValue) {
-		let newValuePermanent = Number.parseInt(newValue)
-		if (Number.isNaN(newValuePermanent)) {
-			newValuePermanent = 0
-			this.getElementValue(sectionKey, groupKey, elementKey).permanent = newValuePermanent
-		}
-		let oldValuePermanent = Number.parseInt(oldValue)
-		if (Number.isNaN(oldValuePermanent)) {
-			oldValuePermanent = 0
-		}
-		if (
-			newValuePermanent === oldValuePermanent
-			|| (newValuePermanent === 0 && oldValuePermanent < 0)
-		) {
-			return;
-		}
-		let diff = (newValuePermanent - oldValuePermanent)
-		if (newValuePermanent < 0) {
-			newValuePermanent = 0
-			diff = 0
-			this.getElementValue(sectionKey, groupKey, elementKey).permanent = newValuePermanent
-		}
-		if (!!this.getGroupData(sectionKey, groupKey).isNeed) {
-			this.getGroupData(sectionKey, groupKey).points.current += diff
-		}
-		this.getElementValue(sectionKey, groupKey, elementKey).temporary = newValuePermanent
-	}
 
 	getSectionGroups(section) {
 		return this.getState().sections[section].groups
@@ -385,55 +333,6 @@ class App extends Component {
 	getGroupData(section, group) {
 		return this.getState().sections[section].groups[group].data
 	}
-
-	getAttribute(section, code, name, type = 'points') {
-		return {
-			name: name,
-			value: {
-				permanent: section === 'attributes' ? 1 : 0,
-				temporary: section === 'attributes' ? 1 : 0
-			},
-			maxLevel: 5,
-			type: TypeFactory.get(type)
-		}
-	}
-
-	getDiscipline(
-		code,           // string: уникальный идентификатор дисциплины
-		name,           // string: локализованное название
-		clans = [],     // array of strings: кланы, для которых дисциплина клановая
-		paths = [],     // array of strings: пути / ветви дисциплины
-		variants = [],  // array of strings: альтернативные версии / специализации
-		description = '', // string: описание дисциплины
-		ritualSupport = false, // boolean: поддержка ритуалов
-		maxLevel = 5
-	) {
-		// преобразуем пути и варианты в нужную структуру
-		const pathsObj = {};
-		paths.forEach(p => {
-			pathsObj[p] = {name: p, value: {permanent: 0, temporary: 0}}
-		});
-
-		const variantsObj = variants.map(v => ({name: v, value: {permanent: 0, temporary: 0}}));
-
-		return {
-			code: code,
-			name: name,
-			value: {permanent: 0, temporary: 0},
-			maxLevel: maxLevel,
-			type: TypeFactory.get('discipline'),
-			clans: clans,
-			paths: pathsObj,
-			variants: variantsObj,
-			metadata: {
-				isClanDiscipline: clans.length > 0,
-				source: 'wod.su',
-				description: description,
-				ritualSupport: ritualSupport
-			}
-		};
-	}
-
 
 	getAspectInitLis() {
 		let list = {}
