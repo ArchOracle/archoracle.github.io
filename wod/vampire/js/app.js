@@ -221,22 +221,18 @@ class App extends Component {
 				attributes: SectionFactory.get('attributes'),
 				skills: SectionFactory.get('skills'),
 				advantages: SectionFactory.initSection('advantages', 'Преимущества', {
-					additions: {
-						name: 'Дополнения',
-						data: this.getGroupInitData('advantages'),
-						elements: {
-							allies: this.getAttribute('advantages', 'allies', 'Союзники'),
-							contacts: this.getAttribute('advantages', 'contacts', 'Связи'),
-							fame: this.getAttribute('advantages', 'fame', 'Слава'),
-							herd: this.getAttribute('advantages', 'herd', 'Стадо'),
-							influence: this.getAttribute('advantages', 'influence', 'Влияние'),
-							resources: this.getAttribute('advantages', 'resources', 'Ресурсы'),
-							retainers: this.getAttribute('advantages', 'retainers', 'Последователи'),
-							haven: this.getAttribute('advantages', 'haven', 'Убежище'),
-							mask: this.getAttribute('advantages', 'mask', 'Маска'),
-							status: this.getAttribute('advantages', 'status', 'Статус')
-						}
-					},
+					additions: new Group('additions', 'Дополнения', {
+						allies: new AdditionElement('allies', 'Союзники'),
+						contacts: new AdditionElement('contacts', 'Связи'),
+						fame: new AdditionElement('fame', 'Слава'),
+						herd: new AdditionElement('herd', 'Стадо'),
+						influence: new AdditionElement('influence', 'Влияние'),
+						resources: new AdditionElement('resources', 'Ресурсы'),
+						retainers: new AdditionElement('retainers', 'Последователи'),
+						haven: new AdditionElement('haven', 'Убежище'),
+						mask: new AdditionElement('mask', 'Маска'),
+						status: new AdditionElement('status', 'Статус')
+					}),
 					disciplines: {
 						name: 'Дисциплины',
 						data: this.getGroupInitData('disciplines'),
