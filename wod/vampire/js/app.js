@@ -995,6 +995,20 @@ class SkillElement extends AttributeOrSkillElement {
 	}
 }
 
+class AdditionElement extends Element {
+	constructor(code, name) {
+		super(
+			code,
+			name,
+			{
+				temporary: 0,
+				permanent: 0
+			},
+			TypeFactory.get('points')
+		);
+	}
+}
+
 //endregion
 
 class Tools {
