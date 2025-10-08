@@ -71,9 +71,11 @@
                                 </template>
                             </div>
                         </template>
-                        <template x-for="(element, elementKey) in group.elements" :key="elementKey">
-                            <div class="section__element" x-data="element" x-html="element.type.getRawHtml()"></div>
-                        </template>
+                        <div class="section__elements">
+                            <template x-for="(element, elementKey) in group.elements" :key="elementKey">
+                                <div class="section__element" x-data="element" x-html="element.type.getRawHtml()"></div>
+                            </template>
+                        </div>
                     </div>
                 </template>
             </div>
