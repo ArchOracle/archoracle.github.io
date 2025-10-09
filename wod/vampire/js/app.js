@@ -1,3 +1,20 @@
+class DataStorage {
+	static humanityPathList = {
+		humanity: {
+			code: 'humanity',
+			name: 'Человечность',
+			virtues: ['consciousness', 'self_control'],
+			description: 'Человечность это человечность. Вампиры, будьте людьми!'
+		},
+		kain: {
+			code: 'kain',
+			name: 'Путь Каина',
+			virtues: ['conviction', 'instincts'],
+			description: 'Идём к Первому Вампиру!'
+		}
+	}
+}
+
 class Component {
 	componentName
 	bindList
@@ -102,7 +119,7 @@ class App extends Component {
 		other: SectionFactory.initSection('other', '', {
 			aspects: new AspectGroup(),
 			humanity_willpower_blood: new Group('humanity_willpower_blood', '', {
-				humanity: new Element('humanity', 'Человечность / Путь', 'humanity', TypeFactory.get('text')),
+				humanity: new HumanityPathElement(),
 				willpower: new Element(
 					'willpower',
 					'Сила Воли',
@@ -908,6 +925,15 @@ class DisciplineElement extends Element {
 	}
 }
 
+class HumanityPathElement extends Element {
+	constructor() {
+		super('humanity_path', 'Человечность / Путь', {
+			path: 'humanity',
+			value: 5
+		}, new HumanityPath());
+	}
+}
+
 //endregion
 
 class Tools {
@@ -1069,6 +1095,35 @@ class Aspect extends Type {
 		<span> ( </span>
 		<input type="number" x-model="element.value" style="width: 30px">
 		<span> ) </span>
+		`;
+	}
+}
+
+class HumanityPath extends Type {
+	constructor() {
+		super('humanity_path')
+	}
+
+	getRawHtml() {
+		return `
+<div class="type type__humanity_path">
+	<div class="path_name" x-text="element.name"></div>
+	<select x-model="element.value.path">
+		<template x-for="(path, pathCode) in DataStorage.humanityPathList" :key="pathCode">
+			<option :value="path.code" :title="path.description" x-text="path.name"></option>
+		</template>
+	</select>
+	<div class="points_raw" x-data="">
+		<template x-for="i in 10" :key="i">
+			<input
+					type="checkbox"
+					:data-level="i"
+					:checked="i <= element.value.value || i <= 1"
+					@change="(event) => {element.value.value = (event.target.dataset.level - (event.target.checked ? 0 : 1))}"
+			>
+		</template>
+	</div>
+</div>
 		`;
 	}
 }

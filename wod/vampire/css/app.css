@@ -126,6 +126,31 @@
     padding-top: 10px;
 }
 
+.type {
+    display: flex;
+    flex-direction: column;
+}
+
+.type__humanity_path {
+    margin-bottom: 30px;
+}
+
+.type__humanity_path .path_name {
+    justify-self: center;
+    align-self: center;
+    margin-bottom: 20px;
+}
+
+.type__humanity_path option {
+    text-align: center;
+}
+
+.type__humanity_path .points_raw {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+
 /*endregion*/
 
 /** region Право */
