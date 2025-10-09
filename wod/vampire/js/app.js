@@ -951,7 +951,8 @@ class TypeFactory {
 		clan: () => new Clan(),
 		discipline: () => new Points(),
 		health_point: () => new HealthPoint(),
-		weakness: () => new Weakness()
+		weakness: () => new Weakness(),
+		aspect: () => new Aspect()
 	}
 	static get(typeCode) {
 		return TypeFactory.typeList[typeCode]()
@@ -1075,6 +1076,21 @@ class Weakness extends Type {
 			<input type="text" x-model="element.value" style="width: 100px">
 		</label>
 		`
+	}
+}
+
+class Aspect extends Type {
+	constructor() {
+		super('aspect');
+	}
+
+	getRawHtml() {
+		return `
+		<input type="text" x-model="element.name" style="width: 170px">
+		<span> ( </span>
+		<input type="number" x-model="element.value" style="width: 30px">
+		<span> ) </span>
+		`;
 	}
 }
 
