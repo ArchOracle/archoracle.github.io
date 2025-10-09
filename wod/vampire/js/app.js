@@ -72,6 +72,81 @@ class App extends Component {
 
 	orderNumber = 1
 
+	sections = {
+		head: SectionFactory.get('head'),
+		attributes: SectionFactory.get('attributes'),
+		skills: SectionFactory.get('skills'),
+		advantages: SectionFactory.initSection('advantages', 'Преимущества', {
+			additions: new Group('additions', 'Дополнения', {
+				allies: new AdditionElement('allies', 'Союзники'),
+				contacts: new AdditionElement('contacts', 'Связи'),
+				fame: new AdditionElement('fame', 'Слава'),
+				herd: new AdditionElement('herd', 'Стадо'),
+				influence: new AdditionElement('influence', 'Влияние'),
+				resources: new AdditionElement('resources', 'Ресурсы'),
+				retainers: new AdditionElement('retainers', 'Последователи'),
+				haven: new AdditionElement('haven', 'Убежище'),
+				mask: new AdditionElement('mask', 'Маска'),
+				status: new AdditionElement('status', 'Статус')
+			}),
+			disciplines: new DisciplinesGroup(),
+			virtues: new Group('virtues', 'Добродетели', {
+				consciousness: new Element('consciousness', 'Сознательность', {permanent: 1}, TypeFactory.get('points')),
+				conviction: new Element('conviction', 'Убеждённость', {permanent: 0}, TypeFactory.get('points')),
+				self_control: new Element('self_control', 'Самоконтроль', {permanent: 1}, TypeFactory.get('points')),
+				instincts: new Element('instincts', 'Инстинкты', {permanent: 0}, TypeFactory.get('points')),
+				courage: new Element('courage', 'Смелость', {permanent: 1}, TypeFactory.get('points')),
+			})
+		}),
+		other: SectionFactory.initSection('other', '', {
+			aspects: new AspectGroup(),
+			humanity_willpower_blood: {
+				elements: {
+					humanity: {
+						name: 'Человечность / Путь',
+						value: 'humanity',
+						type: TypeFactory.get('text')
+					},
+					willpower: {
+						name: 'Сила Воли',
+						value: {
+							permanent: 7,
+							current: 6
+						},
+						type: TypeFactory.get('number')
+					},
+					blood: {
+						name: 'Запас крови',
+						value: {
+							current: 5
+						},
+						type: TypeFactory.get('number')
+					}
+				}
+			},
+			health: {
+				name: 'Здоровье',
+				data: {
+					damage_type: {
+						none: {
+							name: 'Цел'
+						},
+						bashing: {
+							name: 'Ударные'
+						},
+						lethal: {
+							name: 'Летальные'
+						},
+						aggravated: {
+							name: 'Непоглощаемые (аграва)'
+						}
+					},
+				},
+				elements: this.initHealthTrack()
+			}
+		})
+	}
+
 	static get() {
 		if (!App.instance) {
 			App.instance = new App('app')
