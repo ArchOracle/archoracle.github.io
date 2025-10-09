@@ -292,101 +292,14 @@ class App extends Component {
 		this.initStore()
 	}
 
-	initStore() {
-		Alpine.store('state', {
-			sections: {
-				head: SectionFactory.get('head'),
-				attributes: SectionFactory.get('attributes'),
-				skills: SectionFactory.get('skills'),
-				advantages: SectionFactory.initSection('advantages', 'Преимущества', {
-					additions: new Group('additions', 'Дополнения', {
-						allies: new AdditionElement('allies', 'Союзники'),
-						contacts: new AdditionElement('contacts', 'Связи'),
-						fame: new AdditionElement('fame', 'Слава'),
-						herd: new AdditionElement('herd', 'Стадо'),
-						influence: new AdditionElement('influence', 'Влияние'),
-						resources: new AdditionElement('resources', 'Ресурсы'),
-						retainers: new AdditionElement('retainers', 'Последователи'),
-						haven: new AdditionElement('haven', 'Убежище'),
-						mask: new AdditionElement('mask', 'Маска'),
-						status: new AdditionElement('status', 'Статус')
-					}),
-					disciplines: new DisciplinesGroup(),
-					virtues: new Group('virtues', 'Добродетели', {
-						consciousness: new Element('consciousness', 'Сознательность', {permanent: 1}, TypeFactory.get('points')),
-						conviction: new Element('conviction', 'Убеждённость', {permanent: 0}, TypeFactory.get('points')),
-						self_control: new Element('self_control', 'Самоконтроль', {permanent: 1}, TypeFactory.get('points')),
-						instincts: new Element('instincts', 'Инстинкты', {permanent: 0}, TypeFactory.get('points')),
-						courage: new Element('courage', 'Смелость', {permanent: 1}, TypeFactory.get('points')),
-					})
-				}),
-				other: SectionFactory.initSection('other', '', {
-					aspects: new AspectGroup(),
-					humanity_willpower_blood: {
-						elements: {
-							humanity: {
-								name: 'Человечность / Путь',
-								value: 'humanity',
-								type: TypeFactory.get('text')
-							},
-							willpower: {
-								name: 'Сила Воли',
-								value: {
-									permanent: 7,
-									current: 6
-								},
-								type: TypeFactory.get('number')
-							},
-							blood: {
-								name: 'Запас крови',
-								value: {
-									current: 5
-								},
-								type: TypeFactory.get('number')
-							}
-						}
-					},
-					health: {
-						name: 'Здоровье',
-						data: {
-							damage_type: {
-								none: {
-									name: 'Цел'
-								},
-								bashing: {
-									name: 'Ударные'
-								},
-								lethal: {
-									name: 'Летальные'
-								},
-								aggravated: {
-									name: 'Непоглощаемые (аграва)'
-								}
-							},
-						},
-						elements: this.initHealthTrack()
-					}
-				})
-			}
-		})
-	}
-
-	getState() {
-		return Alpine.store('state')
-	}
-
-	setState(state) {
-		Alpine.store('state', state)
-	}
-
-
+	initStore() {}
 
 	handleSelectImportance(sectionKey, groupKey, value) {
 		// debugger;
 		const newOrderNumber = Number.parseInt(value)
 
 		if (newOrderNumber !== 0) {
-			for (let group of Object.keys(this.getSectionGroups(sectionKey))) {
+			for (let group of Object.keys(this.sections[sectionKey])) {
 				if (this.getGroupData(sectionKey, group).orderNumber === newOrderNumber && group !== groupKey) {
 					this.getGroupData(sectionKey, group).orderNumber = 0
 				}
@@ -398,12 +311,9 @@ class App extends Component {
 	}
 
 
-	getSectionGroups(section) {
-		return this.getState().sections[section].groups
-	}
 
 	getGroupData(section, group) {
-		return this.getState().sections[section].groups[group].data
+		return this.sections[section].groups[group].data
 	}
 
 
