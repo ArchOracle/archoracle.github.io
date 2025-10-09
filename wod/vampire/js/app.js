@@ -12,6 +12,7 @@ class Component {
 				this.handleResponse(event.detail)
 			}
 		}
+		return Alpine.reactive(this)
 	}
 
 	addToBindList(attribute, value) {
