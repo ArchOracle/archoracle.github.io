@@ -246,10 +246,7 @@ class App extends Component {
 					})
 				}),
 				other: SectionFactory.initSection('other', '', {
-					aspects: {
-						name: 'Преимущества и недостатки',
-						elements: this.getAspectInitLis()
-					},
+					aspects: new AspectGroup(),
 					humanity_willpower_blood: {
 						elements: {
 							humanity: {
@@ -762,6 +759,27 @@ class DisciplinesGroup extends Group {
 				'Дисциплина, связанная с духами и шаманскими практиками; взаимодействие с духами, призыв и контроль.',
 				false
 			)});
+	}
+}
+
+class AspectGroup extends Group {
+	constructor() {
+		super('aspects', 'Достоинства и недостатки', {});
+		this.elements = this.initAspectList()
+	}
+
+
+	initAspectList() {
+		let list = {}
+		for (let i = 0; i < 9; i++) {
+			list['aspect_' + i] = new Element(
+				'aspect_' + i,
+				'',
+				0,
+				TypeFactory.get('aspect')
+			)
+		}
+		return list
 	}
 }
 
