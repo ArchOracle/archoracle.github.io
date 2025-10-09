@@ -121,7 +121,7 @@ class App extends Component {
 			humanity_willpower_blood: new Group('humanity_willpower_blood', '', {
 				humanity: new HumanityPathElement(),
 				willpower: new WillPowerElement(),
-				blood: new Element('blood', 'Запас крови', {permanent: 7}, TypeFactory.get('points')),
+				blood: new Element('blood', 'Запас крови', 7, new Blood()),
 			}),
 			health: {
 				name: 'Здоровье',
@@ -1155,6 +1155,60 @@ class WillPower extends Type {
 					:data-level="i"
 					:checked="i <= element.value.permanent || i <= 1"
 					@change="(event) => {element.value.permanent = (event.target.dataset.level - (event.target.checked ? 0 : 1))}"
+			>
+		</template>
+	</div>
+</div>
+		`
+	}
+}
+
+class Blood extends Type {
+	constructor() {
+		super('blood');
+	}
+
+	getRawHtml() {
+		return `
+<div class="type type__blood">
+	<div class="name blood__name" x-text="element.name"></div>
+	<div class="points_raw" x-data="">
+		<template x-for="i in 10" :key="i">
+			<input
+					type="checkbox"
+					:data-level="i"
+					:checked="i <= element.value || i <= 0"
+					@change="(event) => {element.value = (event.target.dataset.level - (event.target.checked ? 0 : 1))}"
+			>
+		</template>
+	</div>
+	<div class="points_raw" x-data="">
+		<template x-for="i in 10" :key="i">
+			<input
+					type="checkbox"
+					:data-level="i+10"
+					:checked="i+10 <= element.value || i <= 0"
+					@change="(event) => {element.value = (event.target.dataset.level - (event.target.checked ? 0 : 1))}"
+			>
+		</template>
+	</div>
+	<div class="points_raw" x-data="">
+		<template x-for="i in 10" :key="i">
+			<input
+					type="checkbox"
+					:data-level="i+20"
+					:checked="i+20 <= element.value || i <= 0"
+					@change="(event) => {element.value = (event.target.dataset.level - (event.target.checked ? 0 : 1))}"
+			>
+		</template>
+	</div>
+	<div class="points_raw" x-data="">
+		<template x-for="i in 10" :key="i">
+			<input
+					type="checkbox"
+					:data-level="i+30"
+					:checked="i+30 <= element.value || i <= 0"
+					@change="(event) => {element.value = (event.target.dataset.level - (event.target.checked ? 0 : 1))}"
 			>
 		</template>
 	</div>

@@ -112,7 +112,7 @@
 }
 
 .section__elements {
-    max-height: 300px;
+    max-height: 370px;
     overflow-y: auto;
 }
 
@@ -131,8 +131,8 @@
     flex-direction: column;
 }
 
-.type__humanity_path {
-    margin-bottom: 30px;
+.type__humanity_path, .type__willpower {
+    border-bottom: 1px  solid black;
 }
 
 .type__humanity_path .path_name {
@@ -151,22 +151,27 @@
     margin-top: 10px;
 }
 
-
-.type__willpower {
-    margin-bottom: 30px;
-}
-
 .type__willpower .willpower__name {
     justify-self: center;
     align-self: center;
     margin-bottom: 20px;
 }
 
-.type__willpower .points_raw {
+.type__willpower .points_raw,
+.type__blood .points_raw
+{
     display: flex;
     justify-content: space-between;
     margin-top: 10px;
 }
+
+.name {
+    justify-self: center;
+    align-self: center;
+    margin-bottom: 20px;
+}
+
+
 
 /*endregion*/
 
