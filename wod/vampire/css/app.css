@@ -151,6 +151,23 @@
     margin-top: 10px;
 }
 
+
+.type__willpower {
+    margin-bottom: 30px;
+}
+
+.type__willpower .path_name {
+    justify-self: center;
+    align-self: center;
+    margin-bottom: 20px;
+}
+
+.type__willpower .points_raw {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+
 /*endregion*/
 
 /** region Право */

@@ -120,15 +120,7 @@ class App extends Component {
 			aspects: new AspectGroup(),
 			humanity_willpower_blood: new Group('humanity_willpower_blood', '', {
 				humanity: new HumanityPathElement(),
-				willpower: new Element(
-					'willpower',
-					'Сила Воли',
-					{
-						permanent: 7,
-						current: 6
-					},
-					TypeFactory.get('points')
-				),
+				willpower: new WillPowerElement(),
 				blood: new Element('blood', 'Запас крови', {permanent: 7}, TypeFactory.get('points')),
 			}),
 			health: {
@@ -934,6 +926,15 @@ class HumanityPathElement extends Element {
 	}
 }
 
+class WillPowerElement extends Element {
+	constructor() {
+		super('willpower', 'Сила Воли', {
+			current: 5,
+			permanent: 6
+		}, new WillPower())
+	}
+}
+
 //endregion
 
 class Tools {
@@ -1125,6 +1126,40 @@ class HumanityPath extends Type {
 	</div>
 </div>
 		`;
+	}
+}
+
+class WillPower extends Type {
+	constructor() {
+		super('willpower')
+	}
+
+	getRawHtml() {
+		return `
+<div class="type type__willpower">
+	<div class="willpower__name" x-text="element.name"></div>
+	<div class="points_raw" x-data="">
+		<template x-for="i in 10" :key="i">
+			<input
+					type="checkbox"
+					:data-level="i"
+					:checked="i <= element.value.current || i <= 0"
+					@change="(event) => {element.value.current = (event.target.dataset.level - (event.target.checked ? 0 : 1))}"
+			>
+		</template>
+	</div>
+	<div class="points_raw" x-data="">
+		<template x-for="i in 10" :key="i">
+			<input
+					type="checkbox"
+					:data-level="i"
+					:checked="i <= element.value.permanent || i <= 1"
+					@change="(event) => {element.value.permanent = (event.target.dataset.level - (event.target.checked ? 0 : 1))}"
+			>
+		</template>
+	</div>
+</div>
+		`
 	}
 }
 
