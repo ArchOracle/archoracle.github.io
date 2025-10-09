@@ -100,30 +100,19 @@ class App extends Component {
 		}),
 		other: SectionFactory.initSection('other', '', {
 			aspects: new AspectGroup(),
-			humanity_willpower_blood: {
-				elements: {
-					humanity: {
-						name: 'Человечность / Путь',
-						value: 'humanity',
-						type: TypeFactory.get('text')
+			humanity_willpower_blood: new Group('humanity_willpower_blood', '', {
+				humanity: new Element('humanity', 'Человечность / Путь', 'humanity', TypeFactory.get('text')),
+				willpower: new Element(
+					'willpower',
+					'Сила Воли',
+					{
+						permanent: 7,
+						current: 6
 					},
-					willpower: {
-						name: 'Сила Воли',
-						value: {
-							permanent: 7,
-							current: 6
-						},
-						type: TypeFactory.get('number')
-					},
-					blood: {
-						name: 'Запас крови',
-						value: {
-							current: 5
-						},
-						type: TypeFactory.get('number')
-					}
-				}
-			},
+					TypeFactory.get('points')
+				),
+				blood: new Element('blood', 'Запас крови', {permanent: 7}, TypeFactory.get('points')),
+			}),
 			health: {
 				name: 'Здоровье',
 				data: {
