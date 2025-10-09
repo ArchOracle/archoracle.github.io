@@ -18,7 +18,7 @@
 /* region Центр - основной чарник */
 
 #center {
-    min-width: max(50%, 786px);
+    min-width: max(50%, 900px);
     width: max-content;
 }
 
@@ -104,6 +104,11 @@
     grid-column: 1 / 4;
     justify-self: center;
     align-self: center;
+}
+
+.section__group {
+    padding-left: 15px;
+    padding-right: 5px;
 }
 
 .section__elements {
