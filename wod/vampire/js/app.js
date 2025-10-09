@@ -331,20 +331,6 @@ class App extends Component {
 		return this.getState().sections[section].groups[group].data
 	}
 
-	getAspectInitLis() {
-		let list = {}
-		for (let i = 0; i < 6; i++) {
-			list['empty_aspect_' + i] = {
-				name: '',
-				value: {
-					effect: 0,
-					is_good: false
-				},
-				type: TypeFactory.get('text')
-			}
-		}
-		return list
-	}
 
 	initHealthTrack() {
 		const list = {}
