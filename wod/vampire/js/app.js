@@ -13,6 +13,25 @@ class DataStorage {
 			description: 'Идём к Первому Вампиру!'
 		}
 	}
+
+	static damageTypeList = {
+		none: {
+			name: 'Цел',
+			short: ' '
+		},
+		bashing: {
+			name: 'Ударные',
+			short: '/'
+		},
+		lethal: {
+			name: 'Летальные',
+			short: 'X'
+		},
+		aggravated: {
+			name: 'Непоглощаемые (аграва)',
+			short: '*'
+		}
+	}
 }
 
 class Component {
@@ -123,26 +142,7 @@ class App extends Component {
 				willpower: new WillPowerElement(),
 				blood: new Element('blood', 'Запас крови', 7, new Blood()),
 			}),
-			health: {
-				name: 'Здоровье',
-				data: {
-					damage_type: {
-						none: {
-							name: 'Цел'
-						},
-						bashing: {
-							name: 'Ударные'
-						},
-						lethal: {
-							name: 'Летальные'
-						},
-						aggravated: {
-							name: 'Непоглощаемые (аграва)'
-						}
-					},
-				},
-				elements: this.initHealthTrack()
-			}
+			health: new HealthTrackGroup()
 		})
 	}
 
@@ -313,38 +313,6 @@ class App extends Component {
 
 	getGroupData(section, group) {
 		return this.sections[section].groups[group].data
-	}
-
-
-	initHealthTrack() {
-		const list = {}
-
-		list['bruised'] = this.createHealthPoint('bruised', 'Задет', 0)
-		list['hurt'] = this.createHealthPoint('hurt', 'Повреждён', -1)
-		list['injured'] = this.createHealthPoint('injured', 'Ранен', -1)
-		list['wounded'] = this.createHealthPoint('wounded', 'Тяжело ранен', -2)
-		list['mauled'] = this.createHealthPoint('mauled', 'Травмирован', -2)
-		list['crippled'] = this.createHealthPoint('crippled', 'Искалечен', -5)
-		list['incapacitated'] = this.createHealthPoint('incapacitated', 'Обездвижен', -99)
-		list['torpor'] = this.createHealthPoint('torpor', 'Торпор', -999)
-
-		list['weakness'] = {
-			name: 'Слабость',
-			value: '',
-			type: TypeFactory.get('weakness')
-		}
-
-		return list
-	}
-	createHealthPoint(id, name, fine = 0, damage_type = 'none') {
-		return {
-			name: name,
-			value: {
-				damage_type
-			},
-			fine: fine,
-			type: TypeFactory.get('health_point')
-		}
 	}
 }
 
@@ -753,6 +721,44 @@ class AspectGroup extends Group {
 	}
 }
 
+class HealthTrackGroup extends Group {
+	damageLevel
+
+	constructor() {
+		super('health', 'Здоровье', {});
+		this.elements =  this.initHealthTrack()
+	}
+
+	initHealthTrack() {
+		const list = {}
+
+		list['bruised'] = new HealthPointElement('bruised', 'Задет', 0)
+		list['hurt'] = new HealthPointElement('hurt', 'Повреждён', -1)
+		list['injured'] = new HealthPointElement('injured', 'Ранен', -1)
+		list['wounded'] = new HealthPointElement('wounded', 'Тяжело ранен', -2)
+		list['mauled'] = new HealthPointElement('mauled', 'Травмирован', -2)
+		list['crippled'] = new HealthPointElement('crippled', 'Искалечен', -5)
+		list['incapacitated'] = new HealthPointElement('incapacitated', 'Обездвижен', -99)
+		list['torpor'] = new HealthPointElement('torpor', 'Торпор', -999)
+
+		list['weakness'] = new WeaknessElement(
+			'weakness',
+			'Слабость',
+			'',
+			TypeFactory.get('weakness')
+		)
+
+		return list
+	}
+
+	init() {
+		super.init();
+		// this.addEventListener('damage_change', () => console.log('1'))
+		// console.log(1)
+		// this.$ref.addEventListener('damage_change', () => console.log('1'))
+	}
+}
+
 //endregion
 
 //region Классы элементов
@@ -935,6 +941,38 @@ class WillPowerElement extends Element {
 	}
 }
 
+class HealthPointElement extends Element {
+	fine
+	constructor(code, name, fine) {
+		super(code, name, {
+			damage_type: 'none'
+		}, TypeFactory.get('health_point'));
+		this.fine = fine
+	}
+
+	init() {
+		super.init();
+		Alpine.watch(
+			() => this.value.damage_type,
+			(value) => {
+				this.send(
+					'damage_change',
+					{
+						level: this.name,
+						type: value
+					}
+				)
+			}
+		)
+	}
+}
+
+class WeaknessElement extends Element{
+	constructor() {
+		super('weakness', 'Слабость', '', TypeFactory.get('weakness'));
+	}
+}
+
 //endregion
 
 class Tools {
@@ -1060,11 +1098,15 @@ class HealthPoint extends Type {
 
 	getRawHtml() {
 		return `
-		<label>
-			<span x-text="element.name"></span>
-			<span>: </span>
-			<input type="number" x-model="element.value" style="width: 30px">
-		</label>
+<div class="type type__health_point">
+	<div class="health_point__name" x-text="element.name"></div>
+	<div class="health_point__fine" x-text="element.fine > -10 ? element.fine : ''"></div>
+	<select x-model="element.value.damage_type">
+		<template x-for="(damageType, code) in DataStorage.damageTypeList" :key="code">
+			<option :value="code" x-text="damageType.short" :title="damageType.name"></option>
+		</template>
+	</select>
+</div>
 		`
 	}
 }
@@ -1076,11 +1118,10 @@ class Weakness extends Type {
 
 	getRawHtml() {
 		return `
-		<label>
-			<span x-text="element.name"></span>
-			<span>: </span>
-			<input type="text" x-model="element.value" style="width: 100px">
-		</label>
+<div class="type type__weakness">
+	<div class="name weakness__name" x-text="element.name"></div>
+	<input type="text" x-model="element.value">
+</div>
 		`
 	}
 }

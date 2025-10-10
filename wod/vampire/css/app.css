@@ -171,7 +171,18 @@
     margin-bottom: 20px;
 }
 
+.type.type__health_point {
+    flex-direction: row;
+    width: 80%;
+    justify-self: center;
+}
 
+.health_point__name {
+    width: max(100px, 50%);
+}
+.health_point__fine {
+    width: 35%;
+}
 
 /*endregion*/
 
