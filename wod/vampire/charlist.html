@@ -1,31 +1,87 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8">
-	<title>Чарник вампиров</title>
-	<link rel="stylesheet" href="css/app.css">
-	<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
-	<script src="js/app.js"></script>
+    <meta charset="UTF-8">
+    <title>Чарник вампиров</title>
+    <link rel="stylesheet" href="css/app.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script src="js/app.js"></script>
 </head>
 <body>
-<div id="app">
-	<div id="left"></div>
-	<div id="center">
-		<div class="title">
-			VAMPIRE: THE MASQUERADE
-		</div>
-		<div class="section head" x-data="Head.get()">
-			<template x-for="item in instance.fields" :key="item.name">
-				<div class="head__field_container" x-data="TextField.get(item.name)">
-					<label>
-						<span x-text="instance.label"></span>:
-						<input type="text" x-model="instance.value">
-					</label>
-				</div>
-			</template>
-		</div>
-	</div>
-	<div id="right"></div>
+<div id="app" x-data="App.get()" x-bind="App.get().bind()">
+    <div id="left"></div>
+    <div id="center">
+        <div class="title">
+            <!--			VAMPIRE: THE MASQUERADE-->
+            <div class="title__vampire_letter_v"><span>v</span></div>
+            <div class="title__vampire_letters_other__top">
+                <span>a</span>
+                <span>m</span>
+                <span>p</span>
+                <span>i</span>
+                <span>r</span>
+            </div>
+            <div class="title__vampire_letter_e"><span>e</span></div>
+            <div class="title__vampire_letters_other__bottom">the masquerade</div>
+        </div>
+        <template x-for="(section, sectionKey) in App.get().sections" :key="sectionKey">
+            <div class="section" x-data="section" x-bind="section.bind()">
+                <template x-if="!!section.name">
+                    <div class="section__name">
+                        <div x-text="section.name"></div>
+                    </div>
+                </template>
+                <template x-for="(group, groupKey) in groups" :key="groupKey">
+                    <div class="section__group" x-data="group" x-bind="group.bind()">
+                        <template x-if="!!name">
+                            <div class="section__group_name" x-text="group.name"></div>
+                        </template>
+                        <template x-if="!!data">
+                            <div class="section__group_data">
+                                <template x-if="!!data.isNeed">
+                                    <div>
+                                        <label>
+                                            <span>Важность: </span>
+                                            <select @change="(event) => App.instance.handleSelectImportance(sectionKey, groupKey, event.target.value)">
+                                                <option :selected="group.data.orderNumber == 0" value="0">Не выбрано
+                                                </option>
+                                                <option :selected="group.data.orderNumber == 1" value="1">Первичные
+                                                </option>
+                                                <option :selected="group.data.orderNumber == 2" value="2">Вторичные
+                                                </option>
+                                                <option :selected="group.data.orderNumber == 3" value="3">Третичные
+                                                </option>
+                                            </select>
+                                        </label>
+                                        <div title="Вложенные / Максимально доступные">
+                                            <span>Вложенные очки: </span>
+                                            <span
+                                                    x-text="data.points.current"
+                                                    x-effect="() => {
+                                                            data.points.current = 0;
+                                                            for (let element in elements) {
+                                                            data.points.current += (elements[element].value.permanent-(sectionKey === 'attributes' ? 1 : 0))
+                                                            }
+                                                        }"
+                                            ></span>
+                                            <span> / </span>
+                                            <span x-text="data.points.max"></span>
+                                        </div>
+                                    </div>
+                                </template>
+                            </div>
+                        </template>
+                        <div class="section__elements">
+                            <template x-for="(element, elementKey) in elements" :key="elementKey">
+                                <div class="section__element" x-data="element" x-html="element.type.getRawHtml()" x-bind="element.bind()"></div>
+                            </template>
+                        </div>
+                    </div>
+                </template>
+            </div>
+        </template>
+    </div>
+    <div id="right"></div>
 </div>
 </body>
 </html>
