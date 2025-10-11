@@ -17,19 +17,27 @@ class DataStorage {
 	static damageTypeList = {
 		none: {
 			name: 'Цел',
-			short: ' '
+			short: ' ',
+			value: 0
 		},
 		bashing: {
 			name: 'Ударные',
-			short: '/'
+			short: '/',
+			value: 1
 		},
 		lethal: {
 			name: 'Летальные',
-			short: 'X'
+			short: 'X',
+			value: 2
 		},
 		aggravated: {
 			name: 'Непоглощаемые (аграва)',
-			short: '*'
+			short: '*',
+			value: 3
+		},
+		getValueByCode(code) {
+			console.log([code, this])
+			return this[code]['value']
 		}
 	}
 }
@@ -732,9 +740,25 @@ class HealthTrackGroup extends Group {
 
 	init() {
 		super.init();
-		// this.addEventListener('damage_change', () => console.log('1'))
-		// console.log(1)
-		// this.$ref.addEventListener('damage_change', () => console.log('1'))
+		this.$el.addEventListener('damage_change', (event) => {
+			let isLowLevel = true
+			for (let code in this.elements) {
+				if (code === 'weakness') {
+					continue;
+				}
+				if (code === event.detail.level) {
+					isLowLevel = false
+				}
+				const dtv = DataStorage.damageTypeList.getValueByCode(this.elements[code].value.damage_type)
+				const edtv = DataStorage.damageTypeList.getValueByCode(event.detail.type)
+				if (isLowLevel && dtv < edtv) {
+					this.elements[code].value.damage_type = event.detail.type
+				}
+				if (!isLowLevel && dtv > edtv) {
+					this.elements[code].value.damage_type = event.detail.type
+				}
+			}
+		})
 	}
 }
 
@@ -937,7 +961,7 @@ class HealthPointElement extends Element {
 				this.send(
 					'damage_change',
 					{
-						level: this.name,
+						level: this.componentName,
 						type: value
 					}
 				)
