@@ -1,0 +1,24 @@
+{
+	"nodes":[
+		{"id":"95d55a0f775af1a1","x":-440,"y":0,"width":250,"height":60,"type":"text","text":"Компонент"},
+		{"id":"a1b65646e6245de5","x":20,"y":0,"width":250,"height":60,"type":"text","text":"Секция"},
+		{"id":"84602fedd6869d33","x":20,"y":160,"width":250,"height":60,"type":"text","text":"Группа"},
+		{"id":"d393cd0c91cd0a04","x":20,"y":280,"width":250,"height":60,"type":"text","text":"Элемент"},
+		{"id":"038a4bdda4ef6a01","x":20,"y":-280,"width":250,"height":60,"type":"text","text":"Приложение"},
+		{"id":"68e0303d066e00d8","x":-440,"y":160,"width":250,"height":60,"type":"text","text":"Данные"},
+		{"id":"ff5511eb82e90f47","x":440,"y":0,"width":250,"height":60,"type":"text","text":"Название"}
+	],
+	"edges":[
+		{"id":"219ed5670d8d9112","fromNode":"a1b65646e6245de5","fromSide":"left","toNode":"95d55a0f775af1a1","toSide":"right","color":"6"},
+		{"id":"e5ed2a1bb7be2c14","fromNode":"a1b65646e6245de5","fromSide":"bottom","toNode":"84602fedd6869d33","toSide":"top","color":"4"},
+		{"id":"9a20a358c58df799","fromNode":"84602fedd6869d33","fromSide":"left","toNode":"95d55a0f775af1a1","toSide":"right","color":"6"},
+		{"id":"cc4304953f5c98e3","fromNode":"84602fedd6869d33","fromSide":"bottom","toNode":"d393cd0c91cd0a04","toSide":"top","color":"4"},
+		{"id":"44e184e73d6d3938","fromNode":"d393cd0c91cd0a04","fromSide":"left","toNode":"95d55a0f775af1a1","toSide":"right","color":"6"},
+		{"id":"f6ce4a88c51a5d96","fromNode":"038a4bdda4ef6a01","fromSide":"left","toNode":"95d55a0f775af1a1","toSide":"right","color":"6"},
+		{"id":"696efa21c9ad0b93","fromNode":"038a4bdda4ef6a01","fromSide":"bottom","toNode":"a1b65646e6245de5","toSide":"top","color":"4"},
+		{"id":"6478afc78448691f","fromNode":"95d55a0f775af1a1","fromSide":"bottom","toNode":"68e0303d066e00d8","toSide":"top","color":"4"},
+		{"id":"17e0490e4eb11279","fromNode":"a1b65646e6245de5","fromSide":"right","toNode":"ff5511eb82e90f47","toSide":"left","color":"4"},
+		{"id":"26a07abc4be30a5c","fromNode":"84602fedd6869d33","fromSide":"right","toNode":"ff5511eb82e90f47","toSide":"left","color":"4"},
+		{"id":"e2b3167c1291d0c1","fromNode":"d393cd0c91cd0a04","fromSide":"right","toNode":"ff5511eb82e90f47","toSide":"left","color":"4"}
+	]
+}
